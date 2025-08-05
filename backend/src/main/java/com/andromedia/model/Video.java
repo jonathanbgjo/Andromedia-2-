@@ -10,8 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "videos")
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +28,7 @@ public class Video {
     private Integer views;
 
     @ManyToOne
-    @JoinColumn(name = "uploader_id")
+    @JoinColumn(name = "uploader_id", referencedColumnName = "id")
     private User uploader;
     
     private LocalDateTime uploadTime;

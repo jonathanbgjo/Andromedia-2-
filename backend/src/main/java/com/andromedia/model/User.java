@@ -12,8 +12,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users") 
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +31,7 @@ public class User {
     @ManyToMany
     @JoinTable(
         name = "liked_videos",
-        joinColumns = @JoinColumn(name = "user_id"),
+        joinColumns = @JoinColumn(name = "uploader_id"),
         inverseJoinColumns = @JoinColumn(name = "video_id")
     )
     private List<Video> likedVideos;

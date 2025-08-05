@@ -11,6 +11,6 @@ import com.andromedia.model.Video;
 @Repository
 public interface VideoRepository extends JpaRepository<Video, Long>{
         List<Video> findByUploaderUsername(String username);
-        List<Video> findByUserId(Long userId); 
+        List<Video> findByUploader_Id(Long uploaderId); 
         List<Video> searchByTitle(@Param("keyword") String keyword);
 }
