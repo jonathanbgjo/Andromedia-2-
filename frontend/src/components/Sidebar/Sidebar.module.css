@@ -1,0 +1,24 @@
+body { margin: 0; font-family: system-ui; }
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;            /* use viewport height */
+  width: 220px;
+  background: #f8f8f8;
+  border-right: 1px solid #ddd;
+  padding-top: 20px;
+  float:left;
+}
+
+.sidebar a {
+  display: block !important;  /* override .link */
+  width: auto !important;     /* reset width */
+  height: auto !important;    /* reset height */
+  line-height: normal !important;
+  margin: 0 !important;
+  border: none;    
+}
+
+.sidebar a:hover { background: #e6e6e6; }

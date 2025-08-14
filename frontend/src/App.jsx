@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import Home from '../src/pages/Home'
+import MainLayout from './components/layout/MainLayout/MainLayout';
 function App() {
   return (
     <div className="App">
-      <Home></Home>
+      <MainLayout></MainLayout>
     </div>
   );
 }

@@ -25,7 +25,6 @@ export default function Home(){
     )
     return (
         <div>
-            <h1>Testing Home Page</h1>
             <div>
                 {videos.map((video)=> (
                     <VideoCard key={video.id} video={video}/>

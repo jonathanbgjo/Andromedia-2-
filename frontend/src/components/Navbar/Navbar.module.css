@@ -1,0 +1,35 @@
+/* Top navbar container */
+.topnav {
+  background-color: #f8f8f8;
+  overflow: hidden;             /* clears float issues */
+  border-bottom: 1px solid #ddd;
+  display: flex;                /* flexbox for easy alignment */
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+}
+
+/* Links inside navbar */
+.topnav a {
+  color: #333;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Hover effect */
+.topnav a:hover {
+  background-color: #e6e6e6;
+}
+
+/* Optional: push links to left/right */
+.topnav .right {
+  margin-left: auto; /* pushes to right */
+}
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

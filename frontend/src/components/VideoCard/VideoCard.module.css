@@ -1,5 +1,12 @@
 .link {
+  display: inline-block; /* allows width & height to take effect */
   border: 1px solid black;
   padding: 6px;
+  margin: 10px;
   text-decoration: none;
+  width: 100px;
+  height: 50px;
+  text-align: center; /* centers text horizontally */
+  line-height: 30px; /* centers text vertically if single-line text */
+  color: inherit; /* optional - keep link text color */
 }
