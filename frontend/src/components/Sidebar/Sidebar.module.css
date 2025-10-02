@@ -1,24 +1,24 @@
-body { margin: 0; font-family: system-ui; }
-
+/* src/components/Sidebar/Sidebar.module.css */
 .sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;            /* use viewport height */
-  width: 220px;
+  width: var(--sidebar-width);
   background: #f8f8f8;
   border-right: 1px solid #ddd;
-  padding-top: 20px;
-  float:left;
+  padding: 12px 0;
+
+  position: sticky;   /* stays under the navbar while scrolling */
+  top: var(--navbar-height);
+  height: calc(100vh - var(--navbar-height));
+  overflow: auto;
 }
 
 .sidebar a {
-  display: block !important;  /* override .link */
-  width: auto !important;     /* reset width */
-  height: auto !important;    /* reset height */
-  line-height: normal !important;
-  margin: 0 !important;
-  border: none;    
+  display: block;
+  padding: 10px 16px;
+  color: #111;
+  text-decoration: none;
+  border-radius: 8px;
 }
 
-.sidebar a:hover { background: #e6e6e6; }
+.sidebar a:hover {
+  background: #eaeaea;
+}

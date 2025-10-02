@@ -36,3 +36,64 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* App frame */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Top navbar */
+.navbar {
+  position: sticky;        /* stays at the top while scrolling */
+  top: 0;
+  z-index: 1000;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Body row: sidebar + main content */
+.app-body {
+  display: flex;
+  min-height: 0;           /* enables child overflow scrolling */
+  flex: 1;
+}
+
+/* Left sidebar */
+.sidebar {
+  width: 220px;
+  background: #f8f8f8;
+  border-right: 1px solid #ddd;
+  padding: 12px 0;
+  position: sticky;        /* sticks under the navbar */
+  top: 56px;               /* height of navbar */
+  height: calc(100vh - 56px);
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 16px;
+  color: #111;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.sidebar a:hover {
+  background: #eaeaea;
+}
+
+/* Main content area */
+.app-content {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;          /* content scrolls */
+  min-width: 0;
+}

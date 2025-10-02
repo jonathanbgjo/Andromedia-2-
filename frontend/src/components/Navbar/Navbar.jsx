@@ -1,13 +1,15 @@
+// src/components/Navbar/Navbar.jsx
+import styles from "./Navbar.module.css";
 
-export default function Navbar(){
-    return(
-        <div>
-            <a href=""></a>
-            <a href="">home</a>
-            <textarea name="" id="">search</textarea>
-            <a href="">notifications</a>
-            <a href="">create</a>
-            <a href="">profile</a>
-        </div>
-    )
+export default function Navbar() {
+  return (
+    <div className={styles.navbar}>
+      <a href="#">Home</a>
+      <a href="#">Trending</a>
+      <input type="search" placeholder="Search" aria-label="Search" />
+      <a href="#">Notifications</a>
+      <a href="#">Create</a>
+      <a href="#">Profile</a>
+    </div>
+  );
 }
