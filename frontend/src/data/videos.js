@@ -1,0 +1,112 @@
+const tempVideos = [
+  {
+    id: "1",
+    title: "Learn React in 10 Minutes",
+    channelName: "CodeWithJon",
+    views: "44K",
+    description: "A fast introduction to React fundamentals. Perfect for beginners.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?coding,code",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4"
+  },
+  {
+    id: "2",
+    title: "Top 10 NBA Plays of the Week",
+    channelName: "SportsDaily",
+    views: "123K",
+    description: "The best highlights and buzzer beaters from this week's NBA action.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?basketball,nba",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_5mb.mp4"
+  },
+  {
+    id: "3",
+    title: "Beginner Yoga Flow",
+    channelName: "Wellness Studio",
+    views: "565K",
+    description: "Follow along with this 20-minute yoga session to stretch and relax.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?yoga,wellness",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4"
+  },
+  {
+    id: "4",
+    title: "Epic Cat Fails Compilation",
+    channelName: "FunnyPets",
+    views: "1.2M",
+    description: "Hilarious cat fails caught on camera. Guaranteed to make you laugh.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?cat,funny",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_10mb.mp4"
+  },
+  {
+    id: "5",
+    title: "Building a Portfolio Website",
+    channelName: "DevJourney",
+    views: "13.3K",
+    description: "Step by step on how to build and deploy your own portfolio site.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?website,developer",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_30mb.mp4"
+  },
+  {
+    id: "6",
+    title: "How to Cook the Perfect Steak",
+    channelName: "KitchenPro",
+    views: "890K",
+    description: "Learn tips from a chef to get your steak juicy and full of flavor.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?steak,cooking",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_50mb.mp4"
+  },
+  {
+    id: "7",
+    title: "Travel Vlog: Exploring Tokyo",
+    channelName: "Wanderlust Diaries",
+    views: "56K",
+    description: "Join me as I explore the streets, food, and culture of Tokyo, Japan.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?tokyo,travel",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_20mb.mp4"
+  },
+  {
+    id: "8",
+    title: "Lo-Fi Chill Beats to Study To",
+    channelName: "BeatStation",
+    views: "2.1M",
+    description: "Relax with 1 hour of lo-fi hip hop beats curated for study sessions.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?music,lofi",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_15mb.mp4"
+  },
+  {
+    id: "9",
+    title: "iPhone 16 Pro Review: Worth the Upgrade?",
+    channelName: "TechCentral",
+    views: "320K",
+    description: "Hands-on review of the new iPhone 16 Pro. Pros, cons, and verdict.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?iphone,technology",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_25mb.mp4"
+  },
+  {
+    id: "10",
+    title: "Top 5 Golf Swing Tips",
+    channelName: "GolfPro Academy",
+    views: "44K",
+    description: "Five essential tips to improve your golf swing and lower your handicap.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?golf,sports",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_40mb.mp4"
+  },
+  {
+    id: "11",
+    title: "Minecraft Survival Base Tour",
+    channelName: "BlockBuilders",
+    views: "145K",
+    description: "A showcase of my epic survival base built over 6 months in Minecraft.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?minecraft,gaming",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_35mb.mp4"
+  },
+  {
+    id: "12",
+    title: "Daily Meditation for Beginners",
+    channelName: "Mindful Moments",
+    views: "92K",
+    description: "10-minute guided meditation to help calm your mind and start the day.",
+    thumbnailUrl: "https://source.unsplash.com/400x225/?meditation,calm",
+    src: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_12mb.mp4"
+  }
+];
+
+export default tempVideos;

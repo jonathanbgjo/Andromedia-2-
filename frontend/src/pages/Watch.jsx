@@ -1,16 +1,19 @@
 //contains the player, title/description and eventually comments
 
+import { useParams } from "react-router-dom";
+import tempVideos from "../data/videos";  // 👈 shared import
 
 import {useState, useEffect} from 'react'
 import styles from './Watch.module.css';
 
 export default function Watch(){
+    const { id } = useParams();
     const [video, setVideo] = useState(null);
-    const tempVideo = {id: "1", title: "test video", channelName: "testOne", views: "44", description: "this is a test description"};
-
-    useEffect(() => {
-        setVideo(tempVideo);
-    }, [])
+    const [showMore, setShowMore] = useState(false);
+     useEffect(() => {
+    const found = tempVideos.find((v) => v.id === id);
+    setVideo(found);
+  }, [id]);
 
     if (!video) {
         return <div>Loading...</div>;

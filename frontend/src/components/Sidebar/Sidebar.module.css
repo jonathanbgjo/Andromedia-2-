@@ -1,24 +1,55 @@
-/* src/components/Sidebar/Sidebar.module.css */
 .sidebar {
-  width: var(--sidebar-width);
+  width: var(--sidebar-width, 220px);
   background: #f8f8f8;
   border-right: 1px solid #ddd;
   padding: 12px 0;
-
-  position: sticky;   /* stays under the navbar while scrolling */
+  position: sticky;
   top: var(--navbar-height);
-  height: calc(100vh - var(--navbar-height));
+  height: calc(100vh - var(--navbar-height, 56px));
   overflow: auto;
+
 }
 
 .sidebar a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 10px 16px;
   color: #111;
   text-decoration: none;
   border-radius: 8px;
+  font-size: 14px;
 }
 
 .sidebar a:hover {
   background: #eaeaea;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.label {
+  white-space: nowrap;
+}
+
+/* collapsed mode */
+.collapsed {
+  width: 72px;
+}
+
+.collapsed a {
+  flex-direction: column;    /* stack icon above label */
+  justify-content: center;
+  gap: 4px;
+  font-size: 12px;           /* smaller font */
+  padding: 12px 0;
+}
+
+.collapsed .icon {
+  font-size: 20px;           /* keep icons larger */
+}
+
+.collapsed .label {
+  font-size: 11px;           /* shrink text */
 }

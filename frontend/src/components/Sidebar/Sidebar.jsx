@@ -1,13 +1,24 @@
 import styles from "./Sidebar.module.css";
 
-export default function SideBar(){
-
+export default function Sidebar({ collapsed = false }) {
     return(
-        <nav className={styles.sidebar}>
-            <a href="#">Home</a>
-            <a href="#">Trending</a>
-            <a href="#">Subscriptions</a>
-            <a href="#">Library</a>
+    <nav className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`}>
+      <a href="#">
+        <span className={styles.icon}>🏠</span>
+        <span className={styles.label}>Home</span>
+      </a>
+      <a href="#">
+        <span className={styles.icon}>🔥</span>
+        <span className={styles.label}>Trending</span>
+      </a>
+      <a href="#">
+        <span className={styles.icon}>📺</span>
+        <span className={styles.label}>Subscriptions</span>
+      </a>
+      <a href="#">
+        <span className={styles.icon}>📚</span>
+        <span className={styles.label}>Library</span>
+      </a>
         </nav>
     )
 }

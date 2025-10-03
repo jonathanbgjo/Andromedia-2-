@@ -1,9 +1,11 @@
 // src/components/VideoCard/VideoCard.jsx
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styles from "./VideoCard.module.css";
 // import thumb from "../../assets/thumb-1.jpg"; // example static import
 
 export default function VideoCard({ video }) {
+  if (!video) return <div>Loading…</div>;
   return (
     <Link to={`/watch/${video.id}`} className={styles.card}>
       <img
