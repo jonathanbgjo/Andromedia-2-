@@ -1,14 +1,31 @@
-import './App.css';
-import MainLayout from './layout/MainLayout';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Watch from './pages/Watch';
-function App() {
+// App.jsx
+import { Routes, Route } from "react-router-dom";
+import MainLayout from "./layout/MainLayout";
+import Home from "./pages/Home";
+import Watch from "./pages/Watch";
+
+export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />} />
-      <Route path="/watch/:id" element={<Watch />} />
+      {/* Home: sidebar expanded by default */}
+      <Route
+        path="/"
+        element={
+          <MainLayout startCollapsed={false}>
+            <Home />
+          </MainLayout>
+        }
+      />
+
+      {/* Watch: sidebar collapsed by default, but toggle still works */}
+      <Route
+        path="/watch/:id"
+        element={
+          <MainLayout startCollapsed={true}>
+            <Watch />
+          </MainLayout>
+        }
+      />
     </Routes>
   );
 }
-
-export default App;
