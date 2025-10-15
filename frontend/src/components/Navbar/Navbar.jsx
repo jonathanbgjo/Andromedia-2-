@@ -1,34 +1,62 @@
-import styles from "./Navbar.module.css";
+import React, { useEffect, useState } from "react";
 
-export default function Navbar({ onToggleSidebar, sidebarToggleDisabled }) {
+export default function Navbar() {
+  // In a real app, you'll replace this with actual auth check (JWT/localStorage)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    // fake login (replace later with API)
+    localStorage.setItem("token", "dummy");
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+  useEffect(() => {
+    // check token on mount
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
   return (
-    <header className={styles.navbar}>
-      <div className={styles.left}>
-        <button
-          type="button"
-          className={styles.menuBtn}
-          onClick={sidebarToggleDisabled ? undefined : onToggleSidebar}
-          aria-label="Toggle sidebar"
-          aria-disabled={sidebarToggleDisabled ? "true" : "false"}
-          disabled={!!sidebarToggleDisabled}
-          title={sidebarToggleDisabled ? "Sidebar disabled on this page" : "Toggle sidebar"}
-        >
-          ☰
-        </button>
-        <a href="/" className={styles.brand}>Home</a>
-      </div>
+    <header>
+      <nav className="navbar navbar-light fixed-top bg-light shadow-sm">
+        <div className="container d-flex justify-content-between align-items-center">
+          <a className="navbar-brand m-0 fw-bold" href="/">
+            Andromedia
+          </a>
 
-      <div className={styles.center}>
-        <form className={styles.searchForm} onSubmit={(e)=>e.preventDefault()}>
-          <input className={styles.searchInput} type="search" placeholder="Search" />
-          <button className={styles.searchBtn} type="submit">🔍</button>
-        </form>
-      </div>
-
-      <nav className={styles.right}>
-        <a className={styles.action} href="#">Create</a>
-        <a className={styles.action} href="#" aria-label="Notifications">🔔</a>
-        <a className={styles.action} href="#" aria-label="Profile">👤</a>
+          <ul className="navbar-nav d-flex flex-row m-0 align-items-center">
+            {isLoggedIn ? (
+              <>
+                <li className="nav-item mx-3">
+                  <a className="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+                <li className="nav-item mx-3">
+                  <a className="nav-link" href="/upload">Upload</a>
+                </li>
+                <li className="nav-item mx-3">
+                  <a className="nav-link" href="/profile">Profile</a>
+                </li>
+                <li className="nav-item mx-3">
+                  <button className="btn btn-outline-danger" onClick={handleLogout}>
+                    Log Out
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item mx-3">
+                  <a className="nav-link" href="/signup">Sign Up</a>
+                </li>
+                <li className="nav-item mx-3">
+                  <a className="nav-link" href="/login">Log In</a>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       </nav>
     </header>
   );
