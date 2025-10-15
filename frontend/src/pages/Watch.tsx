@@ -1,21 +1,22 @@
-// src/pages/Watch.jsx
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
 import tempVideos from "../data/videos";
 import styles from "./Watch.module.css";
+import type { Video } from "../types/video";
 
 export default function Watch() {
-  const { id } = useParams();
-  const [video, setVideo] = useState(null);
+  const { id } = useParams<{ id: string }>();
+  const [video, setVideo] = useState<Video | null>(null);
 
   useEffect(() => {
-    const found = tempVideos.find((v) => v.id === id) || tempVideos[0];
+    if (!id) return;
+    // convert ids to string for comparison (in case your tempVideos have numeric IDs)
+    const found = tempVideos.find((v: Video) => String(v.id) === id) || tempVideos[0];
     setVideo(found);
   }, [id]);
 
-  // simple recommended list: everything except current; take first 10
-  const recommended = useMemo(
-    () => tempVideos.filter((v) => v.id !== id).slice(0, 10),
+  const recommended = useMemo<Video[]>(
+    () => tempVideos.filter((v: Video) => String(v.id) !== id).slice(0, 10),
     [id]
   );
 

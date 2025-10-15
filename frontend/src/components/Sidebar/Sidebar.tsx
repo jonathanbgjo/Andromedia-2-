@@ -1,7 +1,12 @@
+import React from "react";
 import styles from "./Sidebar.module.css";
 
-export default function Sidebar({ collapsed = false }) {
-    return(
+export interface SidebarProps {
+  collapsed?: boolean;
+}
+
+export default function Sidebar({ collapsed = false }: SidebarProps) {
+  return (
     <nav className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`}>
       <a href="#">
         <span className={styles.icon}>🏠</span>
@@ -19,6 +24,6 @@ export default function Sidebar({ collapsed = false }) {
         <span className={styles.icon}>📚</span>
         <span className={styles.label}>Library</span>
       </a>
-        </nav>
-    )
+    </nav>
+  );
 }
