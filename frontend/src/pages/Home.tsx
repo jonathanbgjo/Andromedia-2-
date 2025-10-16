@@ -1,21 +1,21 @@
 import VideoCard from "../components/VideoCard/videoCard";
 import {useState, useEffect} from 'react'
 import styles from './Home.module.css';
-import tempVideos from "../data/videos";  // 👈 shared import
+import tempVideos from "../data/videos";
+import type { Video } from "../types/video";
 
-//DISPLAYS LIST OF VIDEOCARDS (video previews)
-export default function Home(){
-  const [videos, setVideos] = useState([]);
+export default function Home() {
+  const [videos, setVideos] = useState<Video[]>([]); // ✅ type the state
 
   useEffect(() => {
-    setVideos(tempVideos);
-  }, [])
+    setVideos(tempVideos); // tempVideos is Video[]
+  }, []);
 
-    return (
+  return (
     <div className={styles.videoGrid}>
       {videos.map((video) => (
         <VideoCard key={video.id} video={video} />
       ))}
     </div>
-    )
+  );
 }
