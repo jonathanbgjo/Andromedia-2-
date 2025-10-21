@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RequireAuth from "./components/RequireAuth";
 import Home from "./pages/Home";
+import MainLayout from "./layout/MainLayout";
 // const Upload = React.lazy(() => import("./pages/Upload"));
 
 function Navbar() {
@@ -33,8 +34,7 @@ function Navbar() {
 
 export default function App() {
   return (
-    <>
-      <Navbar />
+    <MainLayout>
       <Suspense fallback={<div style={{ padding: 16 }}>Loading…</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -50,6 +50,6 @@ export default function App() {
           /> */}
         </Routes>
       </Suspense>
-    </>
+    </MainLayout>
   );
 }

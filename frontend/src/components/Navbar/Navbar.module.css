@@ -1,120 +1,51 @@
-/* src/components/Navbar/Navbar.module.css */
-.navbar {
-  position: sticky;
+.bar {
+  position: sticky;         /* stays at the very top */
   top: 0;
   z-index: 1000;
-  height: var(--navbar-height, 56px);
-  display: flex;
-  align-items: center;
-  gap: 12px;                 /* base breathing room */
-  padding: 0 16px;
   background: #fff;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-/* Three regions */
-.left {
+  border-bottom: 1px solid #eee;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-width: 0;             /* avoid growing */
+  gap: 12px;
 }
 
-.center {
-  flex: 1;                  /* take available space */
-  display: flex;
-  justify-content: center;  /* keep search centered */
-  min-width: 240px;
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-width: max-content;   /* keep actions visible */
-}
-
-/* Controls */
-.menuBtn {
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  line-height: 1;
-  padding: 6px 8px;
+.toggle {
+  border: 1px solid #ddd;
+  background: #fff;
   border-radius: 8px;
+  padding: 6px 10px;
   cursor: pointer;
 }
-.menuBtn:hover { background: #f2f2f2; }
 
 .brand {
+  font-weight: 700;
   text-decoration: none;
   color: #111;
-  font-weight: 600;
-  font-size: 16px;
 }
 
-/* Search */
-.searchForm {
+.spacer {
+  flex: 1;                  /* pushes links to the right */
+}
+
+.links {
   display: flex;
-  align-items: stretch;
-  width: 100%;
-  max-width: 680px;          /* “elongated” but bounded */
-  gap: 0;
+  gap: 16px;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.searchInput {
-  flex: 1;
-  min-width: 120px;
-  padding: 10px 12px;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  border-right: none;
-  border-radius: 20px 0 0 20px;
-  outline: none;
-}
-
-.searchInput:focus {
-  border-color: #bbb;
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
-}
-
-.searchBtn {
-  border: 1px solid #ddd;
-  border-radius: 0 20px 20px 0;
-  background: #f7f7f7;
-  padding: 0 14px;
-  font-size: 16px;
-  cursor: pointer;
-}
-.searchBtn:hover { background: #efefef; }
-
-/* Right actions */
-.action {
+.link, .buttonLink {
   text-decoration: none;
-  color: #111;
-  font-size: 14px;
+  color: #333;
+}
+
+.buttonLink {
+  border: 1px solid #ddd;
   padding: 6px 10px;
   border-radius: 8px;
-}
-.action:hover { background: #f2f2f2; }
-
-/* Responsive tweaks */
-@media (max-width: 900px) {
-  .navbar { gap: 8px; padding: 0 12px; }
-  .center { min-width: 180px; }
-  .searchForm { max-width: 520px; }
-}
-
-@media (max-width: 640px) {
-  .brand { display: none; }           /* keep left compact */
-  .searchForm { max-width: 100%; }
-  .action { padding: 6px; }
-  .right { gap: 10px; }
-}
-
-.menuBtn[disabled],
-.menuBtn[aria-disabled="true"] {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
+  background: #fff;
+  cursor: pointer;
 }
