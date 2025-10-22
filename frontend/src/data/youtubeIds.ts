@@ -1,0 +1,18 @@
+export const YT_IDS = [
+  "dQw4w9WgXcQ",
+  "9bZkp7q19f0",
+  "3JZ_D3ELwOQ",
+  "mWRsgZuwf_8",
+  "fLexgOxsZu0",
+  "pzn1XBlmqJ8",
+  "D9Db9In_WOg",
+  "bQCZVkLjCFc",
+  "8lrI3HeDdsg",
+  "VevK5GJe-4I",
+  "5mLoplPUuNg",
+  "beiaHO_VVco",
+  "5zbUGlkXzU8",
+  "MtVWAPCwB38",
+  "rWlC696iB2o",
+  "rboiHxBqdZk",
+];

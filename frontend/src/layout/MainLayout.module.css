@@ -1,26 +1,21 @@
-/* src/layout/MainLayout.module.css */
-
-/* If you want a CSS variable for the sidebar width, declare it globally */
-:global(:root) {
-  --sidebar-width: 220px;
-  --navbar-height: 56px;
-}
-
 .app {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .appBody {
   display: flex;
   flex: 1;
-  min-height: 0; /* allow children to scroll */
+  min-height: 0;
+  background: var(--bg);
 }
 
 .appContent {
   flex: 1;
   padding: 16px;
   overflow: auto;
-  min-width: 0;
+  background: var(--bg);
 }

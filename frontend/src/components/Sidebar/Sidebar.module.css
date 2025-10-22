@@ -53,3 +53,24 @@
 .collapsed .label {
   font-size: 11px;           /* shrink text */
 }
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 12px 8px;
+  min-height: calc(100vh - 56px); /* adjust if navbar height differs */
+}
+.collapsed { width: 72px; }
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text);
+}
+.sidebar a:hover { background: var(--bg-soft); }
+.icon { width: 20px; display: inline-grid; place-items: center; }
+.label { opacity: 0.9; }

@@ -1,13 +1,14 @@
 export type VideoID = string | number;
 
 export interface Video {
-  id: VideoID;
+  id: VideoID;                 // keep your internal id
   title: string;
   channelName: string;
-  views: string | number;    
+  views: string | number;
   description?: string;
   thumbnailUrl: string;
-  src: string; 
+  src?: string;                // keep optional for non-YouTube sources
+  youtubeId?: string;          // ✅ new
 }
 
 /** If your backend returns snake_case or different fields, map it to Video */

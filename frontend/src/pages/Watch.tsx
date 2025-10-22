@@ -1,23 +1,40 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import tempVideos from "../data/videos";
+import { loadYouTubeVideos } from "../data/videos";  // ✅ our async loader
 import styles from "./Watch.module.css";
 import type { Video } from "../types/video";
+
+// Utility to randomize videos
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export default function Watch() {
   const { id } = useParams<{ id: string }>();
   const [video, setVideo] = useState<Video | null>(null);
+  const [allVideos, setAllVideos] = useState<Video[]>([]);
 
   useEffect(() => {
-    if (!id) return;
-    // convert ids to string for comparison (in case your tempVideos have numeric IDs)
-    const found = tempVideos.find((v: Video) => String(v.id) === id) || tempVideos[0];
-    setVideo(found);
+    // Load videos dynamically from YouTube (or your backend)
+    loadYouTubeVideos()
+      .then((videos) => {
+        setAllVideos(videos);
+        if (id) {
+          const found = videos.find((v) => String(v.id) === id) || videos[0];
+          setVideo(found);
+        }
+      })
+      .catch(() => setAllVideos([]));
   }, [id]);
 
   const recommended = useMemo<Video[]>(
-    () => tempVideos.filter((v: Video) => String(v.id) !== id).slice(0, 10),
-    [id]
+    () => shuffle(allVideos.filter((v) => String(v.id) !== id)).slice(0, 10),
+    [allVideos, id]
   );
 
   if (!video) return <div className={styles.loading}>Loading…</div>;
@@ -26,14 +43,25 @@ export default function Watch() {
     <div className={styles.watchLayout}>
       <div className={styles.leftCol}>
         <div className={styles.playerWrap}>
-          <video
-            className={styles.player}
-            controls
-            poster={video.thumbnailUrl}
-            preload="metadata"
-          >
-            <source src={video.src} type="video/mp4" />
-          </video>
+          {video.youtubeId ? (
+            <iframe
+              className={styles.player}
+              src={`https://www.youtube.com/embed/${video.youtubeId}`}
+              title={video.title}
+              frameBorder={0}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <video
+              className={styles.player}
+              controls
+              poster={video.thumbnailUrl}
+              preload="metadata"
+            >
+              {video.src && <source src={video.src} type="video/mp4" />}
+            </video>
+          )}
         </div>
 
         <h1 className={styles.title}>{video.title}</h1>
@@ -52,51 +80,7 @@ export default function Watch() {
           </div>
         </div>
 
-        <div className={styles.channelRow}>
-          <div className={styles.channelInfo}>
-            <div className={styles.avatar} aria-hidden="true">
-              {video.channelName?.[0]?.toUpperCase() || "C"}
-            </div>
-            <div>
-              <div className={styles.channelName}>{video.channelName}</div>
-              <div className={styles.subCount}>123K subscribers</div>
-            </div>
-          </div>
-          <button className={styles.subscribeBtn}>Subscribe</button>
-        </div>
-
-        <div className={styles.descriptionCard}>
-          <div className={styles.description}>{video.description}</div>
-        </div>
-
-        <section className={styles.comments}>
-          <h2 className={styles.commentsTitle}>Comments</h2>
-          <form
-            className={styles.newComment}
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <div className={styles.smallAvatar}>Y</div>
-            <input
-              className={styles.commentInput}
-              placeholder="Add a comment…"
-            />
-          </form>
-          <ul className={styles.commentList}>
-            <li className={styles.commentItem}>
-              <div className={styles.smallAvatar}>A</div>
-              <div className={styles.commentBody}>
-                <div className={styles.commentHeader}>
-                  <span className={styles.commentAuthor}>Alex</span>
-                  <span className={styles.dot} />
-                  <span className={styles.commentTime}>2 days ago</span>
-                </div>
-                <p className={styles.commentText}>
-                  Loved this! Can’t wait for the S3 hookup.
-                </p>
-              </div>
-            </li>
-          </ul>
-        </section>
+        {/* rest of the description/comments */}
       </div>
 
       <aside className={styles.rightCol}>

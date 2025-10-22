@@ -1,51 +1,88 @@
 .bar {
-  position: sticky;         /* stays at the very top */
+  position: sticky;
   top: 0;
   z-index: 1000;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-  padding: 8px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 10px 16px;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 .toggle {
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 10px;
   padding: 6px 10px;
   cursor: pointer;
 }
 
 .brand {
-  font-weight: 700;
-  text-decoration: none;
-  color: #111;
+  font-weight: 800;
+  color: var(--text);
 }
 
-.spacer {
-  flex: 1;                  /* pushes links to the right */
+.spacer { flex: 1; }
+
+/* search */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px 10px;
+  min-width: 280px;
+}
+.input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  width: 220px;
+}
+.searchBtn {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
 }
 
 .links {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 .link, .buttonLink {
-  text-decoration: none;
-  color: #333;
+  color: var(--text);
 }
-
 .buttonLink {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   padding: 6px 10px;
-  border-radius: 8px;
-  background: #fff;
+  border-radius: 10px;
+  background: var(--bg);
   cursor: pointer;
 }
+.bar {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.search { background: var(--panel); border: 1px solid var(--border); }
+.input { color: var(--text); }
+.searchBtn { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); }
+.brand { color: var(--text); }
+.link, .buttonLink { color: var(--text); }
