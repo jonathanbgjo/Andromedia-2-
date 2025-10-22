@@ -1,76 +1,70 @@
-.sidebar {
-  width: var(--sidebar-width, 220px);
-  background: #f8f8f8;
-  border-right: 1px solid #ddd;
-  padding: 12px 0;
-  position: sticky;
-  top: var(--navbar-height);
-  height: calc(100vh - var(--navbar-height, 56px));
-  overflow: auto;
+/* -------------------------------------------
+   Sidebar (merged)
+   ------------------------------------------- */
 
+:root {
+  /* tweak these without touching rules */
+  --navbar-height: 56px;
+  --sidebar-width: 200px;     /* was 220/240 → a bit slimmer */
 }
 
+/* base */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  position: sticky;
+  top: var(--navbar-height);
+  height: calc(100vh - var(--navbar-height));
+  overflow: auto;
+
+  /* dark theme tokens */
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 10px 8px;
+}
+
+/* links */
 .sidebar a {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  color: #111;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--text);
   text-decoration: none;
-  border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.95rem;
 }
-
 .sidebar a:hover {
-  background: #eaeaea;
+  background: var(--bg-soft);
 }
 
+/* icon + label */
 .icon {
+  width: 20px;                 /* consistent hit area */
+  display: inline-grid;
+  place-items: center;
   font-size: 18px;
 }
-
 .label {
+  opacity: 0.9;
   white-space: nowrap;
 }
 
 /* collapsed mode */
 .collapsed {
-  width: 72px;
+  width: 68px;                 /* proportionally smaller */
 }
-
 .collapsed a {
-  flex-direction: column;    /* stack icon above label */
+  flex-direction: column;      /* stack icon over label */
   justify-content: center;
   gap: 4px;
-  font-size: 12px;           /* smaller font */
-  padding: 12px 0;
+  padding: 10px 0;
+  font-size: 12px;
 }
-
 .collapsed .icon {
-  font-size: 20px;           /* keep icons larger */
+  font-size: 20px;             /* keep icons readable */
 }
-
 .collapsed .label {
-  font-size: 11px;           /* shrink text */
+  font-size: 11px;
+  opacity: 0.95;
 }
-
-.sidebar {
-  width: 240px;
-  flex-shrink: 0;
-  background: var(--panel);
-  border-right: 1px solid var(--border);
-  padding: 12px 8px;
-  min-height: calc(100vh - 56px); /* adjust if navbar height differs */
-}
-.collapsed { width: 72px; }
-.sidebar a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: var(--text);
-}
-.sidebar a:hover { background: var(--bg-soft); }
-.icon { width: 20px; display: inline-grid; place-items: center; }
-.label { opacity: 0.9; }
