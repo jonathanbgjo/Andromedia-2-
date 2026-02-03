@@ -22,6 +22,22 @@ export async function api<T = unknown>(
         displayName: body.displayName ?? "Demo User",
       } as T;
     }
+    // Return empty array for comments endpoints
+    if (path.includes("/comments")) {
+      return [] as T;
+    }
+    // Return empty array for search endpoints
+    if (path.includes("/search")) {
+      return [] as T;
+    }
+    // Return sensible defaults for like status
+    if (path.includes("/like-status")) {
+      return { isLiked: false, likeCount: 0 } as T;
+    }
+    // Return sensible defaults for like/unlike actions
+    if (path.includes("/like") || path.includes("/unlike")) {
+      return { liked: false, likeCount: 0 } as T;
+    }
     // Default: empty object (adjust per endpoint as needed)
     return {} as T;
   }

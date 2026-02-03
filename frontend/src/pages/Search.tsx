@@ -48,7 +48,8 @@ export default function Search() {
         setError(null);
         const results = await api<BackendVideo[]>(`/api/videos/search?q=${encodeURIComponent(query)}`);
         if (alive) {
-          setVideos(results.map(mapBackendVideo));
+          // Ensure results is an array (defensive programming for demo mode or API errors)
+          setVideos(Array.isArray(results) ? results.map(mapBackendVideo) : []);
         }
       } catch (err) {
         if (alive) {

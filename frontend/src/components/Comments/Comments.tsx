@@ -32,9 +32,11 @@ export default function Comments({ videoId }: CommentsProps) {
     try {
       setLoading(true);
       const data = await api<Comment[]>(`/api/videos/${videoId}/comments`);
-      setComments(data);
+      // Ensure data is an array (defensive programming for demo mode or API errors)
+      setComments(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Failed to load comments:", error);
+      setComments([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
