@@ -48,12 +48,11 @@ public class User {
     private List<Video> uploadedVideos;
 
     @ManyToMany
-    @JoinTable(name = "liked_videos", joinColumns = @JoinColumn(name = "uploader_id"), inverseJoinColumns = @JoinColumn(name = "video_id"))
+    @JoinTable(name = "liked_videos", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "video_id"))
+    private List<Video> likedVideos;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private Set<String> roles;
-    
-    private List<Video> likedVideos;
 }

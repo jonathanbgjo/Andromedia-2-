@@ -6,7 +6,8 @@ import Register from "./pages/Register";
 import RequireAuth from "./components/RequireAuth";
 import Home from "./pages/Home";
 import MainLayout from "./layout/MainLayout";
-import Watch from "./pages/Watch";        
+import Watch from "./pages/Watch";
+import Search from "./pages/Search";
 // const Upload = React.lazy(() => import("./pages/Upload"));
 
 function Navbar() {
@@ -41,7 +42,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/watch/:id" element={<Watch />} />   {/* ✅ add this */}
+          <Route path="/watch/:id" element={<Watch />} />
+          <Route path="/search" element={<Search />} />
           {/* <Route path="/upload" element={<RequireAuth><Upload /></RequireAuth>} /> */}
           <Route path="*" element={<div style={{padding:16}}>Not Found</div>} />
           {/* <Route
