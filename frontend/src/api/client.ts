@@ -1,6 +1,9 @@
 export const API_BASE = (import.meta.env.VITE_API_BASE ?? "").replace(/\/$/, "");
 export const DEMO_MODE = (import.meta.env.VITE_DEMO_MODE ?? "").toLowerCase() === "true";
 
+// In-memory storage for demo mode comments
+const demoComments: Record<string, any[]> = {};
+
 /**
  * Frontend-only: if no API_BASE or demo mode, this shim avoids real network calls.
  * You can customize return values per route below if needed.
@@ -22,9 +25,44 @@ export async function api<T = unknown>(
         displayName: body.displayName ?? "Demo User",
       } as T;
     }
-    // Return empty array for comments endpoints
+    // Handle comments endpoints
     if (path.includes("/comments")) {
-      return [] as T;
+      const videoIdMatch = path.match(/\/api\/videos\/([^/]+)\/comments/);
+      const videoId = videoIdMatch ? videoIdMatch[1] : "unknown";
+
+      // Initialize comments array for this video if it doesn't exist
+      if (!demoComments[videoId]) {
+        demoComments[videoId] = [];
+      }
+
+      // Handle POST (create comment)
+      if (options.method === "POST") {
+        const body = options.body ?? {};
+        const newComment = {
+          id: Date.now(), // Use timestamp as unique ID
+          content: body.content ?? "",
+          createdAt: new Date().toISOString(),
+          author: {
+            displayName: "Demo User",
+            email: "demo@example.com",
+          },
+        };
+        demoComments[videoId].unshift(newComment); // Add to beginning
+        return newComment as T;
+      }
+
+      // Handle DELETE
+      if (options.method === "DELETE") {
+        const commentIdMatch = path.match(/\/comments\/(\d+)$/);
+        if (commentIdMatch) {
+          const commentId = parseInt(commentIdMatch[1]);
+          demoComments[videoId] = demoComments[videoId].filter(c => c.id !== commentId);
+        }
+        return { message: "Comment deleted" } as T;
+      }
+
+      // Handle GET (return all comments for this video)
+      return demoComments[videoId] as T;
     }
     // Return empty array for search endpoints
     if (path.includes("/search")) {
