@@ -4,6 +4,10 @@ export const DEMO_MODE = (import.meta.env.VITE_DEMO_MODE ?? "").toLowerCase() ==
 // In-memory storage for demo mode comments
 const demoComments: Record<string, any[]> = {};
 
+// In-memory storage for demo mode likes
+const demoLikes: Record<string, boolean> = {};
+const demoLikeCounts: Record<string, number> = {};
+
 /**
  * Frontend-only: if no API_BASE or demo mode, this shim avoids real network calls.
  * You can customize return values per route below if needed.
@@ -72,12 +76,17 @@ export async function api<T = unknown>(
     if (path.match(/^\/api\/users\/\d+$/)) {
       const userIdMatch = path.match(/\/api\/users\/(\d+)$/);
       const userId = userIdMatch ? parseInt(userIdMatch[1]) : 1;
+      const demoChannelVideos = [
+        { id: userId * 100 + 1, title: "Demo Video 1", description: "A demo video", s3Url: "", views: 1200, uploadTime: new Date().toISOString(), likeCount: 42 },
+        { id: userId * 100 + 2, title: "Demo Video 2", description: "Another demo video", s3Url: "", views: 830, uploadTime: new Date().toISOString(), likeCount: 15 },
+        { id: userId * 100 + 3, title: "Demo Video 3", description: "Yet another demo video", s3Url: "", views: 560, uploadTime: new Date().toISOString(), likeCount: 8 },
+      ];
       return {
         id: userId,
         displayName: `Demo Channel ${userId}`,
-        createdDate: new Date().toISOString(),
-        videoCount: 0,
-        videos: [],
+        createdDate: "2024-06-15T00:00:00.000Z",
+        videoCount: demoChannelVideos.length,
+        videos: demoChannelVideos,
       } as T;
     }
     if (path.match(/^\/api\/users\/\d+\/videos$/)) {
@@ -85,11 +94,28 @@ export async function api<T = unknown>(
     }
     // Return sensible defaults for like status
     if (path.includes("/like-status")) {
-      return { isLiked: false, likeCount: 0 } as T;
+      const videoIdMatch = path.match(/\/api\/videos\/([^/]+)\/like-status/);
+      const videoId = videoIdMatch ? videoIdMatch[1] : "unknown";
+      return {
+        isLiked: demoLikes[videoId] ?? false,
+        likeCount: demoLikeCounts[videoId] ?? 0,
+      } as T;
     }
-    // Return sensible defaults for like/unlike actions
-    if (path.includes("/like") || path.includes("/unlike")) {
-      return { liked: false, likeCount: 0 } as T;
+    // Handle unlike action (must be checked before /like since /unlike contains /like)
+    if (path.includes("/unlike")) {
+      const videoIdMatch = path.match(/\/api\/videos\/([^/]+)\/unlike/);
+      const videoId = videoIdMatch ? videoIdMatch[1] : "unknown";
+      demoLikes[videoId] = false;
+      demoLikeCounts[videoId] = Math.max(0, (demoLikeCounts[videoId] ?? 0) - 1);
+      return { liked: false, likeCount: demoLikeCounts[videoId] } as T;
+    }
+    // Handle like action
+    if (path.includes("/like")) {
+      const videoIdMatch = path.match(/\/api\/videos\/([^/]+)\/like/);
+      const videoId = videoIdMatch ? videoIdMatch[1] : "unknown";
+      demoLikes[videoId] = true;
+      demoLikeCounts[videoId] = (demoLikeCounts[videoId] ?? 0) + 1;
+      return { liked: true, likeCount: demoLikeCounts[videoId] } as T;
     }
     // Default: empty object (adjust per endpoint as needed)
     return {} as T;
