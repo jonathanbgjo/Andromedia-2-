@@ -3,7 +3,13 @@
     "allow": [
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(npx tsc:*)",
+      "Bash(./node_modules/.bin/tsc:*)",
+      "Bash(ls:*)",
+      "Bash(npx vite build)",
+      "Bash(npm install:*)",
+      "Bash(mvn compile:*)"
     ]
   }
 }

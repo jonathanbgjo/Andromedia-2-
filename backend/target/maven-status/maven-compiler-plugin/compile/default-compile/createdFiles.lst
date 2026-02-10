@@ -1,1 +1,5 @@
 com\andromedia\AndromediaApplication.class
+com\andromedia\controller\dto\VideoResponseDto.class
+com\andromedia\controller\dto\UploaderDto.class
+com\andromedia\controller\dto\VideoSummaryDto.class
+com\andromedia\controller\dto\ChannelDto.class

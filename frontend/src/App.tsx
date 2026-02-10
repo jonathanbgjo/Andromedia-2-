@@ -1,14 +1,13 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { useAuth } from "./auth/AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import RequireAuth from "./components/RequireAuth";
 import Home from "./pages/Home";
 import MainLayout from "./layout/MainLayout";
 import Watch from "./pages/Watch";
 import Search from "./pages/Search";
-// const Upload = React.lazy(() => import("./pages/Upload"));
+import Channel from "./pages/Channel";
 
 function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -44,6 +43,7 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/watch/:id" element={<Watch />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/channel/:id" element={<Channel />} />
           {/* <Route path="/upload" element={<RequireAuth><Upload /></RequireAuth>} /> */}
           <Route path="*" element={<div style={{padding:16}}>Not Found</div>} />
           {/* <Route

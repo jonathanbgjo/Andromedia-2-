@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.andromedia.controller.dto.VideoResponseDto;
 import com.andromedia.model.Video;
 import com.andromedia.service.VideoService;
 
@@ -24,20 +25,25 @@ public class VideoController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Video>> getAllVideos() {
-    return ResponseEntity.ok(videoService.getAllVideos());
+  public ResponseEntity<List<VideoResponseDto>> getAllVideos() {
+    List<VideoResponseDto> dtos = videoService.getAllVideos().stream()
+        .map(videoService::toVideoResponseDto)
+        .toList();
+    return ResponseEntity.ok(dtos);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Video> getVideoById(@PathVariable Long id) {
+  public ResponseEntity<VideoResponseDto> getVideoById(@PathVariable Long id) {
     return videoService.getVideoById(id)
-        .map(ResponseEntity::ok)
+        .map(video -> ResponseEntity.ok(videoService.toVideoResponseDto(video)))
         .orElse(ResponseEntity.notFound().build());
   }
 
   @GetMapping("/search")
-  public ResponseEntity<List<Video>> searchVideos(@RequestParam String q) {
-    List<Video> results = videoService.searchVideos(q);
+  public ResponseEntity<List<VideoResponseDto>> searchVideos(@RequestParam String q) {
+    List<VideoResponseDto> results = videoService.searchVideos(q).stream()
+        .map(videoService::toVideoResponseDto)
+        .toList();
     return ResponseEntity.ok(results);
   }
 

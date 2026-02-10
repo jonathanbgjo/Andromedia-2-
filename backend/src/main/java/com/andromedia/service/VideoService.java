@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.andromedia.controller.dto.UploaderDto;
+import com.andromedia.controller.dto.VideoResponseDto;
+import com.andromedia.controller.dto.VideoSummaryDto;
 import com.andromedia.model.User;
 import com.andromedia.model.Video;
 import com.andromedia.repository.UserRepository;
@@ -89,6 +92,41 @@ public class VideoService {
         }
         Video video = videoOpt.get();
         return video.getLikes() != null ? video.getLikes().size() : 0;
+    }
+
+    public List<Video> getVideosByUploaderId(Long uploaderId) {
+        return videoRepository.findByUploader_Id(uploaderId);
+    }
+
+    public VideoSummaryDto toVideoSummaryDto(Video video) {
+        int likeCount = video.getLikes() != null ? video.getLikes().size() : 0;
+        return new VideoSummaryDto(
+            video.getId(),
+            video.getTitle(),
+            video.getDescription(),
+            video.getS3Url(),
+            video.getViews(),
+            video.getUploadTime(),
+            likeCount
+        );
+    }
+
+    public VideoResponseDto toVideoResponseDto(Video video) {
+        int likeCount = video.getLikes() != null ? video.getLikes().size() : 0;
+        UploaderDto uploaderDto = null;
+        if (video.getUploader() != null) {
+            uploaderDto = new UploaderDto(video.getUploader().getId(), video.getUploader().getDisplayName());
+        }
+        return new VideoResponseDto(
+            video.getId(),
+            video.getTitle(),
+            video.getDescription(),
+            video.getS3Url(),
+            video.getViews(),
+            video.getUploadTime(),
+            uploaderDto,
+            likeCount
+        );
     }
 
     public boolean isLikedByUser(Long videoId, String userEmail) {

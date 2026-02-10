@@ -68,6 +68,21 @@ export async function api<T = unknown>(
     if (path.includes("/search")) {
       return [] as T;
     }
+    // Return mock channel data for user endpoints
+    if (path.match(/^\/api\/users\/\d+$/)) {
+      const userIdMatch = path.match(/\/api\/users\/(\d+)$/);
+      const userId = userIdMatch ? parseInt(userIdMatch[1]) : 1;
+      return {
+        id: userId,
+        displayName: `Demo Channel ${userId}`,
+        createdDate: new Date().toISOString(),
+        videoCount: 0,
+        videos: [],
+      } as T;
+    }
+    if (path.match(/^\/api\/users\/\d+\/videos$/)) {
+      return [] as T;
+    }
     // Return sensible defaults for like status
     if (path.includes("/like-status")) {
       return { isLiked: false, likeCount: 0 } as T;

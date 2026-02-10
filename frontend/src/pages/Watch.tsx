@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { loadYouTubeVideos } from "../data/videos";  // ✅ our async loader
 import { api } from "../api/client";
@@ -109,6 +109,14 @@ export default function Watch() {
 
         <div className={styles.metaBar}>
           <div className={styles.leftMeta}>
+            {video.uploader ? (
+              <Link to={`/channel/${video.uploader.id}`} style={{ color: "var(--accent)", fontWeight: 600 }}>
+                {video.uploader.displayName}
+              </Link>
+            ) : (
+              <span className={styles.stat}>{video.channelName}</span>
+            )}
+            <span className={styles.dot} />
             <span className={styles.stat}>{video.views} views</span>
             <span className={styles.dot} />
             <span className={styles.stat}>Published recently</span>
