@@ -1,12 +1,19 @@
 :root {
-  --bg: #0f1218;
-  --bg-soft: #131824;
-  --panel: #171d2a;
-  --text: #e9edf6;
-  --muted: #a5afc4;
-  --border: #242b3a;
-  --accent: #4ea1ff;
-  --shadow: 0 6px 18px rgba(0,0,0,0.35);
+  /* YouTube Dark Theme Colors */
+  --bg: #0f0f0f;
+  --bg-soft: #272727;
+  --panel: #212121;
+  --text: #f1f1f1;
+  --text-secondary: #aaaaaa;
+  --muted: #aaaaaa;
+  --border: #303030;
+  --accent: #3ea6ff;
+  --youtube-red: #ff0000;
+  --youtube-red-hover: #cc0000;
+  --shadow: 0 2px 5px rgba(0,0,0,0.2);
+  --navbar-height: 56px;
+  --sidebar-width: 240px;
+  --radius: 12px;
 }
 
 html, body, #root {
