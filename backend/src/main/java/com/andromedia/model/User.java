@@ -51,6 +51,17 @@ public class User {
     @JoinTable(name = "liked_videos", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "video_id"))
     private List<Video> likedVideos;
 
+    @ManyToMany
+    @JoinTable(
+        name = "user_subscriptions",
+        joinColumns = @JoinColumn(name = "subscriber_id"),
+        inverseJoinColumns = @JoinColumn(name = "channel_id")
+    )
+    private Set<User> subscribedTo;
+
+    @ManyToMany(mappedBy = "subscribedTo")
+    private Set<User> subscribers;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")

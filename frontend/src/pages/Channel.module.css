@@ -81,6 +81,24 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
+/* Subscribe button */
+.subscribeBtn {
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.subscribeBtn:hover {
+  opacity: 0.85;
+}
+
 /* Empty state */
 .emptyState {
   text-align: center;

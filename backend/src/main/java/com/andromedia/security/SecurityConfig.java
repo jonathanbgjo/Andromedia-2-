@@ -38,7 +38,10 @@ public class SecurityConfig {
           .requestMatchers("/auth/**").permitAll()
           .requestMatchers(HttpMethod.GET, "/health").permitAll()
           .requestMatchers(HttpMethod.GET, "/api/videos/**").permitAll()
+          .requestMatchers(HttpMethod.GET, "/api/users/me").authenticated()
+          .requestMatchers(HttpMethod.PUT, "/api/users/me").authenticated()
           .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+          .requestMatchers(HttpMethod.GET, "/api/subscriptions/*/count").permitAll()
           // everything else needs auth
           .anyRequest().authenticated()
       )

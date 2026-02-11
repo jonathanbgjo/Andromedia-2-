@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { loadYouTubeVideos } from "../data/videos";  // ✅ our async loader
+import { loadYouTubeVideos } from "../data/videos";  // our async loader
 import { api } from "../api/client";
+import { useAuth } from "../auth/AuthContext";
 import Comments from "../components/Comments/Comments";
 import styles from "./Watch.module.css";
 import type { Video } from "../types/video";
+import type { SubscriptionStatus, SubscriberCount } from "../types/subscription";
 
 // Utility to randomize videos
 function shuffle<T>(arr: T[]): T[] {
@@ -18,10 +20,13 @@ function shuffle<T>(arr: T[]): T[] {
 
 export default function Watch() {
   const { id } = useParams<{ id: string }>();
+  const { isAuthenticated } = useAuth();
   const [video, setVideo] = useState<Video | null>(null);
   const [allVideos, setAllVideos] = useState<Video[]>([]);
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [subscriberCount, setSubscriberCount] = useState(0);
 
   useEffect(() => {
     // Load videos dynamically from YouTube (or your backend)
@@ -35,6 +40,13 @@ export default function Watch() {
       })
       .catch(() => setAllVideos([]));
 
+    // Record watch history if authenticated
+    if (id && isAuthenticated) {
+      api(`/api/history/${id}`, { method: "POST", auth: true }).catch(() => {
+        // Silently ignore errors for watch history recording
+      });
+    }
+
     // Load like status if id exists
     if (id) {
       api<{ isLiked: boolean; likeCount: number }>(`/api/videos/${id}/like-status`)
@@ -47,6 +59,44 @@ export default function Watch() {
         });
     }
   }, [id]);
+
+  // Load subscription status when video/uploader changes
+  useEffect(() => {
+    if (!video?.uploader?.id) return;
+    const channelId = video.uploader.id;
+
+    // Get subscriber count (public endpoint)
+    api<SubscriberCount>(`/api/subscriptions/${channelId}/count`)
+      .then((data) => setSubscriberCount(data.subscriberCount))
+      .catch(() => {});
+
+    // Get subscription status (auth required)
+    if (isAuthenticated) {
+      api<SubscriptionStatus>(`/api/subscriptions/${channelId}/status`, { auth: true })
+        .then((data) => setIsSubscribed(data.subscribed))
+        .catch(() => {});
+    }
+  }, [video?.uploader?.id, isAuthenticated]);
+
+  const handleSubscribe = async () => {
+    if (!video?.uploader?.id) return;
+    const channelId = video.uploader.id;
+
+    try {
+      if (isSubscribed) {
+        await api<SubscriptionStatus>(`/api/subscriptions/${channelId}/unsubscribe`, { method: "POST", auth: true });
+        setIsSubscribed(false);
+        setSubscriberCount((c) => Math.max(0, c - 1));
+      } else {
+        await api<SubscriptionStatus>(`/api/subscriptions/${channelId}/subscribe`, { method: "POST", auth: true });
+        setIsSubscribed(true);
+        setSubscriberCount((c) => c + 1);
+      }
+    } catch (error) {
+      console.error("Failed to subscribe/unsubscribe:", error);
+      alert("Please log in to subscribe");
+    }
+  };
 
   const handleLike = async () => {
     if (!id) return;
@@ -110,9 +160,25 @@ export default function Watch() {
         <div className={styles.metaBar}>
           <div className={styles.leftMeta}>
             {video.uploader ? (
-              <Link to={`/channel/${video.uploader.id}`} style={{ color: "var(--accent)", fontWeight: 600 }}>
-                {video.uploader.displayName}
-              </Link>
+              <>
+                <Link to={`/channel/${video.uploader.id}`} style={{ color: "var(--accent)", fontWeight: 600 }}>
+                  {video.uploader.displayName}
+                </Link>
+                <span className={styles.stat} style={{ fontSize: 12 }}>
+                  {subscriberCount} subscriber{subscriberCount !== 1 ? "s" : ""}
+                </span>
+                <button
+                  className={styles.subscribeBtn}
+                  onClick={handleSubscribe}
+                  style={{
+                    background: isSubscribed ? "var(--panel)" : "#cc0000",
+                    color: isSubscribed ? "var(--muted)" : "#fff",
+                    border: isSubscribed ? "1px solid var(--border)" : "none",
+                  }}
+                >
+                  {isSubscribed ? "SUBSCRIBED" : "SUBSCRIBE"}
+                </button>
+              </>
             ) : (
               <span className={styles.stat}>{video.channelName}</span>
             )}

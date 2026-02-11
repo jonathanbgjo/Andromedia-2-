@@ -1,7 +1,10 @@
 package com.andromedia.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,53 @@ public class VideoService {
 
     public Video uploadVideo(Video video){
         return videoRepository.save(video);
+    }
+
+    public Video createVideo(String title, String description, String videoUrl, User uploader) {
+        String youtubeId = extractYouTubeId(videoUrl);
+        if (youtubeId == null) {
+            throw new IllegalArgumentException("Invalid YouTube URL");
+        }
+
+        Video video = new Video();
+        video.setTitle(title);
+        video.setDescription(description);
+        video.setS3Url(youtubeId);
+        video.setUploader(uploader);
+        video.setUploadTime(LocalDateTime.now());
+        video.setViews(0);
+
+        return videoRepository.save(video);
+    }
+
+    /**
+     * Extract YouTube video ID from various URL formats:
+     * - https://www.youtube.com/watch?v=VIDEO_ID
+     * - https://youtu.be/VIDEO_ID
+     * - https://www.youtube.com/embed/VIDEO_ID
+     * - https://www.youtube.com/v/VIDEO_ID
+     * - https://youtube.com/shorts/VIDEO_ID
+     */
+    public String extractYouTubeId(String url) {
+        if (url == null || url.isBlank()) {
+            return null;
+        }
+
+        // Pattern covers youtube.com/watch?v=, youtu.be/, youtube.com/embed/, youtube.com/v/, youtube.com/shorts/
+        Pattern pattern = Pattern.compile(
+            "(?:https?://)?(?:www\\.)?(?:youtube\\.com/(?:watch\\?.*v=|embed/|v/|shorts/)|youtu\\.be/)([a-zA-Z0-9_-]{11})"
+        );
+        Matcher matcher = pattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        // If the input is already just an 11-character video ID
+        if (url.matches("^[a-zA-Z0-9_-]{11}$")) {
+            return url;
+        }
+
+        return null;
     }
 
     public void deleteVideo(Long id){

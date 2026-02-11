@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { api } from "../api/client";
+import { useAuth } from "../auth/AuthContext";
 import type { Channel as ChannelType } from "../types/channel";
+import type { SubscriptionStatus, SubscriberCount } from "../types/subscription";
 import styles from "./Channel.module.css";
 
 export default function Channel() {
   const { id } = useParams<{ id: string }>();
+  const { isAuthenticated } = useAuth();
   const [channel, setChannel] = useState<ChannelType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [subscriberCount, setSubscriberCount] = useState(0);
 
   useEffect(() => {
     if (!id) return;
@@ -24,7 +29,37 @@ export default function Channel() {
         setError(err.message || "Failed to load channel");
         setLoading(false);
       });
-  }, [id]);
+
+    // Get subscriber count (public)
+    api<SubscriberCount>(`/api/subscriptions/${id}/count`)
+      .then((data) => setSubscriberCount(data.subscriberCount))
+      .catch(() => {});
+
+    // Get subscription status (auth required)
+    if (isAuthenticated) {
+      api<SubscriptionStatus>(`/api/subscriptions/${id}/status`, { auth: true })
+        .then((data) => setIsSubscribed(data.subscribed))
+        .catch(() => {});
+    }
+  }, [id, isAuthenticated]);
+
+  const handleSubscribe = async () => {
+    if (!id) return;
+    try {
+      if (isSubscribed) {
+        await api<SubscriptionStatus>(`/api/subscriptions/${id}/unsubscribe`, { method: "POST", auth: true });
+        setIsSubscribed(false);
+        setSubscriberCount((c) => Math.max(0, c - 1));
+      } else {
+        await api<SubscriptionStatus>(`/api/subscriptions/${id}/subscribe`, { method: "POST", auth: true });
+        setIsSubscribed(true);
+        setSubscriberCount((c) => c + 1);
+      }
+    } catch (error) {
+      console.error("Failed to subscribe/unsubscribe:", error);
+      alert("Please log in to subscribe");
+    }
+  };
 
   if (loading) return <div className={styles.loading}>Loading channel...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
@@ -48,10 +83,22 @@ export default function Channel() {
         <div className={styles.channelInfo}>
           <h1 className={styles.displayName}>{channel.displayName}</h1>
           <div className={styles.stats}>
+            <span>{subscriberCount} subscriber{subscriberCount !== 1 ? "s" : ""}</span>
             <span>{channel.videoCount} video{channel.videoCount !== 1 ? "s" : ""}</span>
             <span>Joined {joinDate}</span>
           </div>
         </div>
+        <button
+          className={styles.subscribeBtn}
+          onClick={handleSubscribe}
+          style={{
+            background: isSubscribed ? "var(--panel)" : "#cc0000",
+            color: isSubscribed ? "var(--muted)" : "#fff",
+            border: isSubscribed ? "1px solid var(--border)" : "none",
+          }}
+        >
+          {isSubscribed ? "SUBSCRIBED" : "SUBSCRIBE"}
+        </button>
       </div>
 
       <div className={styles.section}>

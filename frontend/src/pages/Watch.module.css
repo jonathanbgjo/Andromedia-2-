@@ -182,3 +182,20 @@
 .recLink:hover .recTitle {
   text-decoration: underline;
 }
+
+/* ====== Subscribe button ====== */
+.subscribeBtn {
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  text-transform: uppercase;
+  margin-left: 8px;
+}
+
+.subscribeBtn:hover {
+  opacity: 0.85;
+}

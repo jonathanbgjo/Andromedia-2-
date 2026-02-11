@@ -2,4 +2,12 @@ com\andromedia\AndromediaApplication.class
 com\andromedia\controller\dto\VideoResponseDto.class
 com\andromedia\controller\dto\UploaderDto.class
 com\andromedia\controller\dto\VideoSummaryDto.class
+com\andromedia\controller\SubscriptionController.class
+com\andromedia\controller\WatchHistoryController.class
+com\andromedia\model\WatchHistory$WatchHistoryBuilder.class
+com\andromedia\repository\WatchHistoryRepository.class
+com\andromedia\model\WatchHistory.class
+com\andromedia\controller\dto\UserProfileDto.class
 com\andromedia\controller\dto\ChannelDto.class
+com\andromedia\service\SubscriptionService.class
+com\andromedia\service\WatchHistoryService.class
