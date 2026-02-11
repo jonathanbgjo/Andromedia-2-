@@ -1,56 +1,42 @@
-/* YouTube-style Watch Page Layout */
+/* ====== Layout columns ====== */
 .watchLayout {
   display: grid;
-  grid-template-columns: 1fr 402px;
-  gap: 24px;
-  max-width: 1920px;
+  grid-template-columns: 1fr 360px;   /* left main + right sidebar */
+  gap: 20px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0;
+  padding: 16px;
 }
 
 .leftCol {
   min-width: 0;
-  width: 100%;
 }
 
 .rightCol {
   position: sticky;
-  top: calc(var(--navbar-height) + 24px);
+  top: calc(var(--navbar-height, 56px) + 8px);
   align-self: start;
   height: fit-content;
-  max-height: calc(100vh - var(--navbar-height) - 48px);
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
-/* Custom scrollbar for recommendations */
-.rightCol::-webkit-scrollbar {
-  width: 8px;
+/* Collapse to one column on smaller screens */
+@media (max-width: 1024px) {
+  .watchLayout {
+    grid-template-columns: 1fr;
+  }
+  .rightCol {
+    position: static;
+    top: auto;
+  }
 }
 
-.rightCol::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.rightCol::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-.rightCol::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-soft);
-}
-
-/* Video Player */
+/* ====== Player (unchanged, included for clarity) ====== */
 .playerWrap {
   border-radius: var(--radius);
   overflow: hidden;
   background: #000;
   aspect-ratio: 16 / 9;
-  width: 100%;
-  margin-bottom: 12px;
 }
-
 .player {
   width: 100%;
   height: 100%;
@@ -135,19 +121,17 @@
 
 /* ====== Recommended list ====== */
 .recommendedTitle {
-  margin: 0 0 16px 0;
+  margin: 4px 0 10px;
   font-size: 16px;
-  font-weight: 600;
-  color: var(--text);
+  font-weight: 700;
 }
 
 .recommendedList {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  gap: 10px;
 }
 
 .recItem {
@@ -155,62 +139,43 @@
 }
 
 .recLink {
-  display: flex;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: 168px 1fr;  /* thumb + text */
+  gap: 10px;
   text-decoration: none;
   color: inherit;
-  align-items: flex-start;
-  padding: 4px;
-  border-radius: 8px;
-  transition: background-color 0.1s ease;
+  align-items: start;
 }
 
-.recLink:hover {
-  background: var(--bg-soft);
-}
-
-/* Recommended Video Thumbnail */
 .recThumb {
-  width: 168px;
-  flex-shrink: 0;
+  width: 100%;
   aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 8px;
-  background: var(--bg-soft);
+  background: #eee;
 }
 
-/* Recommended Video Metadata */
 .recMeta {
-  flex: 1;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 4px;
 }
 
 .recTitle {
   margin: 0;
   font-size: 14px;
-  line-height: 1.4;
-  font-weight: 500;
-  color: var(--text);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-break: break-word;
+  line-height: 1.3;
+  font-weight: 600;
 }
 
 .recChannel {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.4;
+  font-size: 13px;
+  color: var(--muted);
 }
 
 .recViews {
   font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.4;
+  color: var(--muted);
 }
 
 /* Hover affordance */

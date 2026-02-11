@@ -1,102 +1,70 @@
-/* YouTube-style Sidebar */
+/* -------------------------------------------
+   Sidebar (merged)
+   ------------------------------------------- */
+
+:root {
+  /* tweak these without touching rules */
+  --navbar-height: 56px;
+  --sidebar-width: 200px;     /* was 220/240 → a bit slimmer */
+}
+
+/* base */
 .sidebar {
   width: var(--sidebar-width);
   flex-shrink: 0;
   position: sticky;
   top: var(--navbar-height);
   height: calc(100vh - var(--navbar-height));
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: auto;
+
+  /* dark theme tokens */
   background: var(--panel);
-  padding: 12px 0;
-  transition: width 0.2s ease;
+  border-right: 1px solid var(--border);
+  padding: 10px 8px;
 }
 
-/* Scrollbar styling for sidebar */
-.sidebar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-soft);
-}
-
-/* Sidebar links */
+/* links */
 .sidebar a {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 10px 24px;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
   color: var(--text);
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 400;
-  transition: background-color 0.1s ease;
-  cursor: pointer;
+  font-size: 0.95rem;
 }
-
 .sidebar a:hover {
   background: var(--bg-soft);
 }
 
-/* Icon styling */
+/* icon + label */
 .icon {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  flex-shrink: 0;
+  width: 20px;                 /* consistent hit area */
+  display: inline-grid;
+  place-items: center;
+  font-size: 18px;
 }
-
 .label {
+  opacity: 0.9;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.4;
 }
 
-/* Collapsed sidebar */
+/* collapsed mode */
 .collapsed {
-  width: 72px;
+  width: 68px;                 /* proportionally smaller */
 }
-
 .collapsed a {
-  flex-direction: column;
+  flex-direction: column;      /* stack icon over label */
   justify-content: center;
-  gap: 6px;
-  padding: 16px 0;
-  text-align: center;
+  gap: 4px;
+  padding: 10px 0;
+  font-size: 12px;
 }
-
 .collapsed .icon {
-  font-size: 24px;
+  font-size: 20px;             /* keep icons readable */
 }
-
 .collapsed .label {
-  font-size: 10px;
-  line-height: 1.2;
-}
-
-/* Active state (optional - can be added via className in component) */
-.sidebar a.active {
-  background: var(--bg-soft);
-  font-weight: 500;
-}
-
-/* Divider between sections (if needed) */
-.sidebar hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 12px 0;
+  font-size: 11px;
+  opacity: 0.95;
 }
