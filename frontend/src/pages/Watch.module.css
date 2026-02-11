@@ -59,21 +59,30 @@
   background: #000;
 }
 
-/* Video Title */
-.title {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--text);
-  margin: 0 0 12px 0;
-  word-break: break-word;
+/* ====== Loading state ====== */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: var(--muted);
+  font-size: 16px;
 }
 
-/* Meta Bar - Views, Date, Actions */
+/* ====== Video title ====== */
+.title {
+  margin: 12px 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+/* ====== Meta bar (channel + actions) ====== */
 .metaBar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
   padding: 12px 0;
@@ -84,50 +93,47 @@
 .leftMeta {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--text-secondary);
-  font-size: 14px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .stat {
-  color: var(--text-secondary);
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .dot {
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: var(--text-secondary);
+  background: var(--muted);
+  display: inline-block;
 }
 
 .rightActions {
   display: flex;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-/* Action Buttons */
 .actionBtn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: var(--bg-soft);
-  border: none;
-  border-radius: 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
   color: var(--text);
   font-size: 14px;
-  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.1s ease;
-  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .actionBtn:hover {
-  background: var(--border);
+  background: var(--bg-soft);
+  border-color: var(--accent);
 }
 
-/* Recommended Videos Section */
+/* ====== Recommended list ====== */
 .recommendedTitle {
   margin: 0 0 16px 0;
   font-size: 16px;
@@ -207,61 +213,24 @@
   line-height: 1.4;
 }
 
-/* Loading State */
-.loading {
-  padding: 40px;
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 16px;
+/* Hover affordance */
+.recLink:hover .recTitle {
+  text-decoration: underline;
 }
 
-/* Responsive Layout */
-@media (max-width: 1280px) {
-  .watchLayout {
-    grid-template-columns: 1fr 350px;
-    gap: 20px;
-  }
-
-  .recThumb {
-    width: 150px;
-  }
+/* ====== Subscribe button ====== */
+.subscribeBtn {
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  text-transform: uppercase;
+  margin-left: 8px;
 }
 
-@media (max-width: 1024px) {
-  .watchLayout {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .rightCol {
-    position: static;
-    top: auto;
-    max-height: none;
-    margin-top: 24px;
-  }
-
-  .recThumb {
-    width: 168px;
-  }
-}
-
-@media (max-width: 768px) {
-  .title {
-    font-size: 18px;
-  }
-
-  .metaBar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .rightActions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .actionBtn {
-    padding: 8px 12px;
-    font-size: 13px;
-  }
+.subscribeBtn:hover {
+  opacity: 0.85;
 }

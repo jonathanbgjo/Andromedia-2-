@@ -9,6 +9,7 @@ export interface Video {
   thumbnailUrl: string;
   src?: string;                // keep optional for non-YouTube sources
   youtubeId?: string;          // ✅ new
+  uploader?: { id: number; displayName: string };
 }
 
 /** If your backend returns snake_case or different fields, map it to Video */

@@ -76,4 +76,16 @@ public class Video {
     public Integer getViews() {
         return views;
     }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
+    public void setUploader(User uploader) {
+        this.uploader = uploader;
+    }
+
+    public void setUploadTime(LocalDateTime uploadTime) {
+        this.uploadTime = uploadTime;
+    }
 }
