@@ -6,38 +6,81 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.andromedia.controller.dto.VideoResponseDto;
+import com.andromedia.model.User;
 import com.andromedia.model.Video;
+import com.andromedia.repository.UserRepository;
 import com.andromedia.service.VideoService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/videos")
 public class VideoController {
 
   private final VideoService videoService;
+  private final UserRepository userRepository;
 
-  public VideoController(VideoService videoService) {
+  public VideoController(VideoService videoService, UserRepository userRepository) {
     this.videoService = videoService;
+    this.userRepository = userRepository;
   }
 
   @GetMapping
-  public ResponseEntity<List<Video>> getAllVideos() {
-    return ResponseEntity.ok(videoService.getAllVideos());
+  public ResponseEntity<List<VideoResponseDto>> getAllVideos() {
+    List<VideoResponseDto> dtos = videoService.getAllVideos().stream()
+        .map(videoService::toVideoResponseDto)
+        .toList();
+    return ResponseEntity.ok(dtos);
+  }
+
+  @PostMapping
+  public ResponseEntity<?> createVideo(@RequestBody Map<String, String> payload) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated()) {
+      return ResponseEntity.status(401).body(Map.of("error", "Not authenticated"));
+    }
+
+    String title = payload.get("title");
+    String description = payload.get("description");
+    String videoUrl = payload.get("videoUrl");
+
+    if (title == null || title.trim().isEmpty()) {
+      return ResponseEntity.badRequest().body(Map.of("error", "Title is required"));
+    }
+    if (videoUrl == null || videoUrl.trim().isEmpty()) {
+      return ResponseEntity.badRequest().body(Map.of("error", "Video URL is required"));
+    }
+
+    String userEmail = auth.getName();
+    Optional<User> userOpt = userRepository.findByEmail(userEmail);
+    if (userOpt.isEmpty()) {
+      return ResponseEntity.status(401).body(Map.of("error", "User not found"));
+    }
+
+    try {
+      Video video = videoService.createVideo(title.trim(), description, videoUrl.trim(), userOpt.get());
+      return ResponseEntity.ok(videoService.toVideoResponseDto(video));
+    } catch (IllegalArgumentException e) {
+      return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+    }
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Video> getVideoById(@PathVariable Long id) {
+  public ResponseEntity<VideoResponseDto> getVideoById(@PathVariable Long id) {
     return videoService.getVideoById(id)
-        .map(ResponseEntity::ok)
+        .map(video -> ResponseEntity.ok(videoService.toVideoResponseDto(video)))
         .orElse(ResponseEntity.notFound().build());
   }
 
   @GetMapping("/search")
-  public ResponseEntity<List<Video>> searchVideos(@RequestParam String q) {
-    List<Video> results = videoService.searchVideos(q);
+  public ResponseEntity<List<VideoResponseDto>> searchVideos(@RequestParam String q) {
+    List<VideoResponseDto> results = videoService.searchVideos(q).stream()
+        .map(videoService::toVideoResponseDto)
+        .toList();
     return ResponseEntity.ok(results);
   }
 

@@ -1,12 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./VideoCard.module.css";
 import type { Video } from "../../types/video";
 
 export default function VideoCard({ video }: { video: Video }) {
+  const navigate = useNavigate();
+
   if (!video) return null;
 
   return (
-    <Link to={`/watch/${video.id}`} className={styles.card}>
+    <div
+      className={styles.card}
+      onClick={() => navigate(`/watch/${video.id}`)}
+      style={{ cursor: "pointer" }}
+    >
       <div className={styles.thumbWrap}>
         <img
           className={styles.thumb}
@@ -30,9 +36,20 @@ export default function VideoCard({ video }: { video: Video }) {
       <div className={styles.body}>
         <h3 className={styles.title}>{video.title}</h3>
         <p className={styles.meta}>
-          {video.channelName} • {video.views} views
+          {video.uploader ? (
+            <Link
+              to={`/channel/${video.uploader.id}`}
+              onClick={(e) => e.stopPropagation()}
+              style={{ color: "inherit" }}
+            >
+              {video.uploader.displayName}
+            </Link>
+          ) : (
+            video.channelName
+          )}{" "}
+          • {video.views} views
         </p>
       </div>
-    </Link>
+    </div>
   );
 }

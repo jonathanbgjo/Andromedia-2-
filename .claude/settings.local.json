@@ -3,7 +3,23 @@
     "allow": [
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(npx tsc:*)",
+      "Bash(./node_modules/.bin/tsc:*)",
+      "Bash(ls:*)",
+      "Bash(npx vite build)",
+      "Bash(npm install:*)",
+      "Bash(mvn compile:*)",
+      "Bash(mvn spring-boot:run:*)",
+      "Bash(node -e:*)",
+      "Bash(npx vite:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(where:*)",
+      "Bash(choco install:*)",
+      "Bash(powershell:*)",
+      "Bash(export PATH=\"$HOME/gh/bin:$PATH\")",
+      "Bash(gh:*)"
     ]
   }
 }

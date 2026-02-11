@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
 export interface SidebarProps {
@@ -8,22 +9,22 @@ export interface SidebarProps {
 export default function Sidebar({ collapsed = false }: SidebarProps) {
   return (
     <nav className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`}>
-      <a href="#">
+      <Link to="/">
         <span className={styles.icon}>🏠</span>
         <span className={styles.label}>Home</span>
-      </a>
+      </Link>
       <a href="#">
         <span className={styles.icon}>🔥</span>
         <span className={styles.label}>Trending</span>
       </a>
-      <a href="#">
+      <Link to="/subscriptions">
         <span className={styles.icon}>📺</span>
         <span className={styles.label}>Subscriptions</span>
-      </a>
-      <a href="#">
+      </Link>
+      <Link to="/library">
         <span className={styles.icon}>📚</span>
         <span className={styles.label}>Library</span>
-      </a>
+      </Link>
     </nav>
   );
 }
