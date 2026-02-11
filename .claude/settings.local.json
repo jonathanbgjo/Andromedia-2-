@@ -12,7 +12,9 @@
       "Bash(mvn compile:*)",
       "Bash(mvn spring-boot:run:*)",
       "Bash(node -e:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)"
     ]
   }
 }
