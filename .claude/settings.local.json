@@ -14,7 +14,12 @@
       "Bash(node -e:*)",
       "Bash(npx vite:*)",
       "Bash(git push:*)",
-      "Bash(gh pr create:*)"
+      "Bash(gh pr create:*)",
+      "Bash(where:*)",
+      "Bash(choco install:*)",
+      "Bash(powershell:*)",
+      "Bash(export PATH=\"$HOME/gh/bin:$PATH\")",
+      "Bash(gh:*)"
     ]
   }
 }
