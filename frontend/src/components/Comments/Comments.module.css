@@ -1,171 +1,124 @@
-/* YouTube-style Comments Section */
 .commentsSection {
-  margin-top: 24px;
-  padding: 24px 0 0 0;
+  margin-top: 2rem;
+  padding: 1rem 0;
 }
 
 .commentsTitle {
-  font-size: 16px;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 24px;
-  color: var(--text);
+  margin-bottom: 1.5rem;
 }
 
-/* Comment Form */
 .commentForm {
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
 }
 
 .commentInput {
   width: 100%;
-  padding: 8px 0;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  background: transparent;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   font-family: inherit;
-  font-size: 14px;
-  color: var(--text);
+  font-size: 0.95rem;
   resize: vertical;
-  margin-bottom: 8px;
-  line-height: 1.4;
+  margin-bottom: 0.5rem;
 }
 
 .commentInput:focus {
   outline: none;
-  border-bottom-color: var(--text);
-}
-
-.commentInput::placeholder {
-  color: var(--text-secondary);
+  border-color: #065fd4;
 }
 
 .formActions {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   justify-content: flex-end;
-  margin-top: 8px;
 }
 
 .cancelBtn,
 .submitBtn {
-  padding: 10px 16px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 18px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 4px;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.1s ease;
+  transition: background-color 0.2s;
 }
 
 .cancelBtn {
   background-color: transparent;
-  color: var(--text);
+  color: #606060;
 }
 
 .cancelBtn:hover {
-  background-color: var(--bg-soft);
+  background-color: #f2f2f2;
 }
 
 .submitBtn {
-  background-color: var(--accent);
-  color: #0f0f0f;
+  background-color: #065fd4;
+  color: white;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background-color: rgba(62, 166, 255, 0.9);
+  background-color: #0553c2;
 }
 
 .submitBtn:disabled {
-  background-color: var(--border);
-  color: var(--text-secondary);
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
-/* Login Prompt */
 .loginPrompt {
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-  font-size: 14px;
+  color: #606060;
+  margin-bottom: 2rem;
 }
 
-/* Comments List */
 .commentsList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.5rem;
 }
 
 .comment {
-  padding: 12px 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .commentHeader {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .authorName {
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .commentDate {
-  color: var(--text-secondary);
-  font-size: 12px;
+  color: #606060;
+  font-size: 0.85rem;
 }
 
 .commentContent {
-  margin: 0;
-  line-height: 1.4;
-  color: var(--text);
-  font-size: 14px;
-  word-wrap: break-word;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  color: #0f0f0f;
 }
 
-/* Delete Button */
 .deleteBtn {
-  padding: 8px 12px;
+  padding: 0.25rem 0.75rem;
   background-color: transparent;
-  border: none;
-  color: var(--text-secondary);
-  border-radius: 18px;
-  font-size: 12px;
+  border: 1px solid #cc0000;
+  color: #cc0000;
+  border-radius: 4px;
+  font-size: 0.85rem;
   cursor: pointer;
-  margin-top: 8px;
-  transition: background-color 0.1s ease;
+  margin-top: 0.5rem;
 }
 
 .deleteBtn:hover {
-  background-color: var(--bg-soft);
-  color: var(--text);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .commentsSection {
-    margin-top: 16px;
-    padding-top: 16px;
-  }
-
-  .commentsTitle {
-    font-size: 14px;
-    margin-bottom: 16px;
-  }
-
-  .commentInput {
-    font-size: 14px;
-  }
-
-  .formActions {
-    gap: 6px;
-  }
-
-  .cancelBtn,
-  .submitBtn {
-    padding: 8px 14px;
-    font-size: 13px;
-  }
+  background-color: #cc0000;
+  color: white;
 }
