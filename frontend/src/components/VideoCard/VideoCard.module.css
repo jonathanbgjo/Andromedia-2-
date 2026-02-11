@@ -1,26 +1,27 @@
+/* YouTube-style Video Card */
 .card {
-  display: block;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
   color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: none;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,.45);
-  border-color: #2c3547;
+  color: var(--text);
 }
 
-/* Keep thumbnails consistent: 16:9 area, image covers */
+/* Thumbnail container with 16:9 aspect ratio */
 .thumbWrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;         /* modern browsers */
+  aspect-ratio: 16 / 9;
   background: var(--bg-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
 }
 
 .thumb {
@@ -28,29 +29,63 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.2s ease;
 }
 
+.card:hover .thumb {
+  transform: scale(1.02);
+}
+
+/* Video info section */
 .body {
-  padding: 12px 14px 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
+/* Video title - 2 line clamp like YouTube */
 .title {
-  margin: 0 0 6px;
-  font-weight: 700;
-  line-height: 1.25;
-  color: var(--text);           /* ✅ visible even when not hovered */
-  display: -webkit-box;         /* clamp to 2 lines */
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text);
+  display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-break: break-word;
+  max-height: 2.8em;
 }
 
-.card:hover .title {
-  color: var(--accent);         /* subtle change on hover */
-}
-
+/* Metadata (channel name, views) */
 .meta {
   margin: 0;
-  color: var(--muted);
-  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* Add hover effect to title only */
+.card:hover .title {
+  color: var(--text);
+}
+
+/* Responsive font sizes */
+@media (max-width: 599px) {
+  .title {
+    font-size: 14px;
+  }
+
+  .meta {
+    font-size: 12px;
+  }
+
+  .thumbWrap {
+    margin-bottom: 8px;
+  }
 }
