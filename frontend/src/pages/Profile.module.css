@@ -124,17 +124,18 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
+  margin-top: 0;
 }
 
 .editBtn:hover {
-  background: var(--panel);
+  background: var(--surface-hover);
   border-color: var(--accent);
 }
 
 .channelLink {
   display: inline-block;
   padding: 10px 24px;
-  background: #cc0000;
+  background: var(--red);
   color: #fff;
   border-radius: 20px;
   text-decoration: none;
@@ -146,6 +147,7 @@
 
 .channelLink:hover {
   opacity: 0.85;
+  color: #fff;
 }
 
 /* Edit mode */
@@ -170,14 +172,19 @@
 .editInput {
   width: 100%;
   padding: 10px 14px;
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   color: var(--text);
   font-size: 15px;
   outline: none;
   transition: border-color 0.15s ease;
   box-sizing: border-box;
+}
+
+.editInput::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
 }
 
 .editInput:focus {
@@ -191,7 +198,7 @@
 }
 
 .saveBtn {
-  background: #cc0000;
+  background: var(--red);
   border: none;
   border-radius: 20px;
   padding: 10px 24px;
@@ -200,6 +207,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.15s ease;
+  margin-top: 0;
 }
 
 .saveBtn:hover {
@@ -221,10 +229,11 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s ease;
+  margin-top: 0;
 }
 
 .cancelBtn:hover {
-  background: var(--panel);
+  background: var(--surface-hover);
 }
 
 @media (max-width: 640px) {
