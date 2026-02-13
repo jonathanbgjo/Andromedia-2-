@@ -6,15 +6,13 @@
   padding: 0 16px 32px;
 }
 
-/* Banner area */
 .banner {
   height: 160px;
-  background: linear-gradient(135deg, #1a2236 0%, #2a3a5c 50%, #1a2236 100%);
+  background: linear-gradient(135deg, #181818 0%, #272727 50%, #181818 100%);
   border-radius: 0 0 16px 16px;
   margin: 0 -16px;
 }
 
-/* Header with avatar + info */
 .header {
   display: flex;
   align-items: flex-end;
@@ -63,7 +61,6 @@
   white-space: nowrap;
 }
 
-/* Video grid section */
 .section {
   margin-top: 32px;
 }
@@ -81,7 +78,6 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
-/* Subscribe button */
 .subscribeBtn {
   border-radius: 20px;
   padding: 10px 20px;
@@ -93,13 +89,13 @@
   text-transform: uppercase;
   flex-shrink: 0;
   align-self: center;
+  margin-top: 0;
 }
 
 .subscribeBtn:hover {
   opacity: 0.85;
 }
 
-/* Empty state */
 .emptyState {
   text-align: center;
   padding: 48px 16px;
@@ -107,7 +103,6 @@
   font-size: 16px;
 }
 
-/* Loading state */
 .loading {
   display: flex;
   align-items: center;
@@ -117,7 +112,6 @@
   font-size: 16px;
 }
 
-/* Error state */
 .error {
   text-align: center;
   padding: 48px 16px;

@@ -1,14 +1,3 @@
-/* -------------------------------------------
-   Sidebar (merged)
-   ------------------------------------------- */
-
-:root {
-  /* tweak these without touching rules */
-  --navbar-height: 56px;
-  --sidebar-width: 200px;     /* was 220/240 → a bit slimmer */
-}
-
-/* base */
 .sidebar {
   width: var(--sidebar-width);
   flex-shrink: 0;
@@ -16,14 +5,11 @@
   top: var(--navbar-height);
   height: calc(100vh - var(--navbar-height));
   overflow: auto;
-
-  /* dark theme tokens */
-  background: var(--panel);
+  background: var(--bg);
   border-right: 1px solid var(--border);
   padding: 10px 8px;
 }
 
-/* links */
 .sidebar a {
   display: flex;
   align-items: center;
@@ -34,36 +20,39 @@
   text-decoration: none;
   font-size: 0.95rem;
 }
+
 .sidebar a:hover {
-  background: var(--bg-soft);
+  background: var(--surface-hover);
 }
 
-/* icon + label */
 .icon {
-  width: 20px;                 /* consistent hit area */
+  width: 20px;
   display: inline-grid;
   place-items: center;
   font-size: 18px;
 }
+
 .label {
   opacity: 0.9;
   white-space: nowrap;
 }
 
-/* collapsed mode */
 .collapsed {
-  width: 68px;                 /* proportionally smaller */
+  width: 68px;
 }
+
 .collapsed a {
-  flex-direction: column;      /* stack icon over label */
+  flex-direction: column;
   justify-content: center;
   gap: 4px;
   padding: 10px 0;
   font-size: 12px;
 }
+
 .collapsed .icon {
-  font-size: 20px;             /* keep icons readable */
+  font-size: 20px;
 }
+
 .collapsed .label {
   font-size: 11px;
   opacity: 0.95;

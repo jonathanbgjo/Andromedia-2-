@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { Video } from "../types/video";
-import { api } from "../api/client";
+import { api, DEMO_MODE, API_BASE } from "../api/client";
+import { loadYouTubeVideos } from "../data/videos";
 import VideoCard from "../components/VideoCard/videoCard";
 import styles from "./Home.module.css";
 
@@ -42,14 +43,27 @@ export default function Search() {
     }
 
     let alive = true;
+    const isDemoMode = !API_BASE || DEMO_MODE;
+
     (async () => {
       try {
         setLoading(true);
         setError(null);
-        const results = await api<BackendVideo[]>(`/api/videos/search?q=${encodeURIComponent(query)}`);
-        if (alive) {
-          // Ensure results is an array (defensive programming for demo mode or API errors)
-          setVideos(Array.isArray(results) ? results.map(mapBackendVideo) : []);
+
+        if (isDemoMode) {
+          const allVideos = await loadYouTubeVideos();
+          const lowerQuery = query.toLowerCase();
+          const filtered = allVideos.filter(
+            (v) =>
+              v.title.toLowerCase().includes(lowerQuery) ||
+              v.channelName.toLowerCase().includes(lowerQuery)
+          );
+          if (alive) setVideos(filtered);
+        } else {
+          const results = await api<BackendVideo[]>(`/api/videos/search?q=${encodeURIComponent(query)}`);
+          if (alive) {
+            setVideos(Array.isArray(results) ? results.map(mapBackendVideo) : []);
+          }
         }
       } catch (err) {
         if (alive) {

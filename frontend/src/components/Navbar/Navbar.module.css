@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--panel);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
   padding: 10px 16px;
@@ -13,11 +13,12 @@
 
 .toggle {
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--bg-soft);
   color: var(--text);
   border-radius: 10px;
   padding: 6px 10px;
   cursor: pointer;
+  margin-top: 0;
 }
 
 .brand {
@@ -27,24 +28,31 @@
 
 .spacer { flex: 1; }
 
-/* search */
 .search {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 12px;
   padding: 6px 10px;
   min-width: 280px;
 }
+
 .input {
   background: transparent;
   border: none;
   outline: none;
   color: var(--text);
   width: 220px;
+  padding: 0;
 }
+
+.input::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
 .searchBtn {
   border: 1px solid var(--border);
   background: var(--bg-soft);
@@ -52,6 +60,7 @@
   border-radius: 10px;
   padding: 6px 10px;
   cursor: pointer;
+  margin-top: 0;
 }
 
 .links {
@@ -62,27 +71,21 @@
   margin: 0;
   padding: 0;
 }
+
 .link, .buttonLink {
   color: var(--text);
 }
+
 .buttonLink {
   border: 1px solid var(--border);
   padding: 6px 10px;
   border-radius: 10px;
-  background: var(--bg);
-  cursor: pointer;
-}
-.bar {
-  position: sticky; top: 0; z-index: 1000;
   background: var(--bg-soft);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  padding: 10px 16px;
-  display: flex; align-items: center; gap: 12px;
+  cursor: pointer;
+  margin-top: 0;
 }
 
-.search { background: var(--panel); border: 1px solid var(--border); }
-.input { color: var(--text); }
-.searchBtn { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); }
-.brand { color: var(--text); }
-.link, .buttonLink { color: var(--text); }
+.buttonLink:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}

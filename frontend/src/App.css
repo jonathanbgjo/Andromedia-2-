@@ -14,18 +14,18 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--text);
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--accent);
 }
 
 @keyframes App-logo-spin {
@@ -45,19 +45,19 @@
   height: 100vh;
 }
 
-.appBody { display: flex; flex: 1; min-height: 0; }       /* <-- important */
+.appBody { display: flex; flex: 1; min-height: 0; }
 
 
 /* Main content area */
 .app-content {
   flex: 1;
   padding: 16px;
-  overflow: auto;          /* content scrolls */
+  overflow: auto;
   min-width: 0;
 }
 
 
 :root {
   --navbar-height: 56px;
-  --sidebar-width: 220px;
+  --sidebar-width: 200px;
 }

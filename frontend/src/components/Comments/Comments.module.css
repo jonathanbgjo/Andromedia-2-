@@ -7,6 +7,7 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
+  color: var(--text);
 }
 
 .commentForm {
@@ -16,17 +17,24 @@
 .commentInput {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ccc;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 4px;
   font-family: inherit;
   font-size: 0.95rem;
+  color: var(--text);
   resize: vertical;
   margin-bottom: 0.5rem;
 }
 
+.commentInput::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
 .commentInput:focus {
   outline: none;
-  border-color: #065fd4;
+  border-color: var(--accent);
 }
 
 .formActions {
@@ -43,33 +51,35 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin-top: 0;
 }
 
 .cancelBtn {
   background-color: transparent;
-  color: #606060;
+  color: var(--muted);
 }
 
 .cancelBtn:hover {
-  background-color: #f2f2f2;
+  background-color: var(--surface-hover);
+  color: var(--text);
 }
 
 .submitBtn {
-  background-color: #065fd4;
+  background-color: var(--accent);
   color: white;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background-color: #0553c2;
+  opacity: 0.85;
 }
 
 .submitBtn:disabled {
-  background-color: #ccc;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .loginPrompt {
-  color: #606060;
+  color: var(--muted);
   margin-bottom: 2rem;
 }
 
@@ -81,7 +91,7 @@
 
 .comment {
   padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border);
 }
 
 .commentHeader {
@@ -94,17 +104,18 @@
 .authorName {
   font-weight: 600;
   font-size: 0.9rem;
+  color: var(--text);
 }
 
 .commentDate {
-  color: #606060;
+  color: var(--muted);
   font-size: 0.85rem;
 }
 
 .commentContent {
   margin: 0.5rem 0;
   line-height: 1.5;
-  color: #0f0f0f;
+  color: var(--text);
 }
 
 .deleteBtn {
