@@ -63,7 +63,7 @@ const you: Item[] = [
 ];
 
 const explore: Item[] = [
-  { to: "/trending", label: "Trending", Icon: TrendingIcon, external: true },
+  { to: "/trending", label: "Trending", Icon: TrendingIcon },
 ];
 
 function Row({ item }: { item: Item }) {
