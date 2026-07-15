@@ -35,7 +35,7 @@
   display: inline-block;
   margin-top: 8px;
   padding: 10px 24px;
-  background: #cc0000;
+  background: var(--red);
   color: #fff;
   border-radius: 20px;
   text-decoration: none;
@@ -48,6 +48,7 @@
 
 .signInLink:hover {
   opacity: 0.85;
+  color: #fff;
 }
 
 .channelGrid {
@@ -62,7 +63,7 @@
   align-items: center;
   gap: 12px;
   padding: 24px 16px;
-  background: var(--panel);
+  background: var(--bg-soft);
   border: 1px solid var(--border);
   border-radius: 16px;
   text-decoration: none;
@@ -72,14 +73,14 @@
 
 .channelCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 
 .channelAvatar {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: var(--bg-soft);
+  background: var(--panel);
   display: flex;
   align-items: center;
   justify-content: center;

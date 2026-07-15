@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import { useAuth } from "./auth/AuthContext";
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -12,31 +11,8 @@ import Subscriptions from "./pages/Subscriptions";
 import Upload from "./pages/Upload";
 import Profile from "./pages/Profile";
 import Library from "./pages/Library";
+import Trending from "./pages/Trending";
 import RequireAuth from "./components/RequireAuth";
-
-function Navbar() {
-  const { isAuthenticated, user, logout } = useAuth();
-  return (
-    <nav style={{ display: "flex", gap: 12, padding: 10, borderBottom: "1px solid #eee" }}>
-      <Link to="/">Home</Link>
-      {isAuthenticated && <Link to="/upload">Upload</Link>}
-      <div style={{ marginLeft: "auto" }}>
-        {isAuthenticated ? (
-          <>
-            <span style={{ marginRight: 10 }}>Hi, {user?.displayName}</span>
-            <button onClick={logout}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Sign in</Link>
-            <span> · </span>
-            <Link to="/register">Create account</Link>
-          </>
-        )}
-      </div>
-    </nav>
-  );
-}
 
 export default function App() {
   return (
@@ -52,6 +28,7 @@ export default function App() {
           <Route path="/subscriptions" element={<Subscriptions />} />
           <Route path="/upload" element={<RequireAuth><Upload /></RequireAuth>} />
           <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
+          <Route path="/trending" element={<Trending />} />
           <Route path="/library" element={<Library />} />
           <Route path="*" element={<div style={{padding:16}}>Not Found</div>} />
         </Routes>
