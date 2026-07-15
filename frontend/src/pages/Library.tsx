@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { api } from "../api/client";
 import { useAuth } from "../auth/AuthContext";
 import type { WatchHistoryEntry } from "../types/history";
+import { formatCount } from "../util/format";
 import styles from "./Library.module.css";
 
 function timeAgo(dateStr: string): string {
@@ -116,8 +117,8 @@ export default function Library() {
               <div className={styles.cardBody}>
                 <h3 className={styles.cardTitle}>{entry.video.title}</h3>
                 <p className={styles.cardMeta}>
-                  {entry.video.views ?? 0} views
-                  {entry.video.likeCount > 0 && ` \u00B7 ${entry.video.likeCount} likes`}
+                  {formatCount(entry.video.views ?? 0)} views
+                  {entry.video.likeCount > 0 && ` \u00B7 ${formatCount(entry.video.likeCount)} likes`}
                 </p>
                 <span className={styles.watchedAgo}>
                   Watched {timeAgo(entry.watchedAt)}

@@ -11,15 +11,21 @@
   gap: 16px;
 }
 
-/* Hamburger menu button */
-.toggle {
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Round icon buttons (hamburger, mic, etc.) */
+.iconBtn {
   border: none;
   background: transparent;
   color: var(--text);
   border-radius: 50%;
-  padding: 8px;
+  padding: 0;
   cursor: pointer;
-  font-size: 20px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -28,54 +34,67 @@
   transition: background-color 0.1s ease;
 }
 
-.toggle:hover {
+.iconBtn:hover {
   background: var(--bg-soft);
 }
 
 /* Logo/Brand */
 .brand {
-  font-weight: 700;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   color: var(--text);
   text-decoration: none;
   white-space: nowrap;
-  letter-spacing: -0.5px;
-  padding: 8px 0;
+  padding: 0 4px;
 }
 
-.brand:hover {
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brandText {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -1px;
   color: var(--text);
 }
 
-.spacer {
-  flex: 1;
+/* Center search group */
+.center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 1 640px;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-/* Search bar - YouTube style */
 .search {
   display: flex;
   align-items: center;
-  max-width: 640px;
-  flex: 0 1 640px;
-  gap: 0;
+  flex: 1;
+  max-width: 540px;
 }
 
 .input {
-  background: var(--bg);
+  background: #121212;
   border: 1px solid var(--border);
   border-right: none;
   border-radius: 40px 0 0 40px;
   outline: none;
   color: var(--text);
-  padding: 9px 16px;
+  padding: 8px 16px;
   flex: 1;
   min-width: 0;
-  font-size: 14px;
+  font-size: 16px;
+  font-family: var(--font);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .input:focus {
-  border-color: #3ea6ff;
-  background: var(--bg);
+  border-color: var(--accent);
 }
 
 .input::placeholder {
@@ -87,68 +106,126 @@
   background: var(--bg-soft);
   color: var(--text);
   border-radius: 0 40px 40px 0;
-  padding: 9px 20px;
+  padding: 0 20px;
+  height: 40px;
   cursor: pointer;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.1s ease;
-  white-space: nowrap;
 }
 
 .searchBtn:hover {
   background: var(--border);
 }
 
-/* Right side links */
-.links {
+.micBtn {
+  border: none;
+  background: var(--bg-soft);
+  color: var(--text);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
-  gap: 8px;
   align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.1s ease;
 }
 
-.link {
+.micBtn:hover {
+  background: var(--border);
+}
+
+/* Right side actions */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.createBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-soft);
   color: var(--text);
-  text-decoration: none;
-  padding: 8px 12px;
   border-radius: 18px;
+  padding: 8px 14px;
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
   transition: background-color 0.1s ease;
+}
+
+.createBtn:hover {
+  background: var(--border);
+}
+
+.createLabel {
   white-space: nowrap;
 }
 
-.link:hover {
-  background: var(--bg-soft);
-  color: var(--accent);
+.profileLink {
+  display: inline-flex;
+  border-radius: 50%;
 }
 
-.buttonLink {
-  border: 1px solid var(--border);
-  padding: 8px 12px;
-  border-radius: 18px;
+.textBtn {
+  border: none;
   background: transparent;
-  color: var(--accent);
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
+  font-family: var(--font);
+  padding: 8px 10px;
+  border-radius: 18px;
   transition: background-color 0.1s ease;
-  white-space: nowrap;
 }
 
-.buttonLink:hover {
+.textBtn:hover {
+  background: var(--bg-soft);
+  color: var(--text);
+}
+
+/* Sign in pill (logged out) */
+.signInBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  background: transparent;
+  border-radius: 18px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.1s ease;
+}
+
+.signInBtn:hover {
   background: rgba(62, 166, 255, 0.1);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .search {
+  .center {
     flex: 1;
-    max-width: none;
   }
 
-  .links {
+  .createLabel {
+    display: none;
+  }
+
+  .micBtn {
+    display: none;
+  }
+
+  .brandText {
     display: none;
   }
 }

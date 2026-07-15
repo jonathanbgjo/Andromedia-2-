@@ -6,7 +6,6 @@
   color: var(--text);
   text-decoration: none;
   cursor: pointer;
-  transition: none;
 }
 
 .card:hover {
@@ -29,19 +28,40 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.2s ease;
 }
 
-.card:hover .thumb {
-  transform: scale(1.02);
+/* Duration badge, bottom-right of the thumbnail */
+.duration {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 3px 4px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+/* Info row: avatar + text block */
+.info {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.avatarLink {
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 /* Video info section */
 .body {
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  min-width: 0;
 }
 
 /* Video title - 2 line clamp like YouTube */
@@ -53,38 +73,39 @@
   color: var(--text);
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;
   max-height: 2.8em;
 }
 
-/* Metadata (channel name, views) */
+.channel {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.channel:hover {
+  color: var(--text);
+}
+
+/* Metadata (views, date) */
 .meta {
   margin: 0;
   color: var(--text-secondary);
   font-size: 12px;
   line-height: 1.5;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
 }
 
-/* Add hover effect to title only */
-.card:hover .title {
-  color: var(--text);
+.dot {
+  color: var(--text-secondary);
 }
 
 /* Responsive font sizes */
 @media (max-width: 599px) {
-  .title {
-    font-size: 14px;
-  }
-
-  .meta {
-    font-size: 12px;
-  }
-
   .thumbWrap {
     margin-bottom: 8px;
   }

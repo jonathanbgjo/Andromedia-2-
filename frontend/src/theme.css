@@ -1,12 +1,15 @@
 :root {
   /* YouTube Dark Theme Colors */
   --bg: #0f0f0f;
-  --bg-soft: #272727;
-  --panel: #212121;
+  --bg-soft: #272727;         /* hover fills / chips */
+  --panel: #0f0f0f;           /* masthead + sidebar match the page (like YouTube) */
+  --menu: #212121;            /* raised surfaces: menus, description box */
   --text: #f1f1f1;
   --text-secondary: #aaaaaa;
   --muted: #aaaaaa;
   --border: #303030;
+  --chip: #272727;            /* pill button background */
+  --chip-hover: #3f3f3f;
   --accent: #3ea6ff;
   --youtube-red: #ff0000;
   --youtube-red-hover: #cc0000;
@@ -14,16 +17,23 @@
   --navbar-height: 56px;
   --sidebar-width: 240px;
   --radius: 12px;
+  --font: "Roboto", "Segoe UI", Arial, system-ui, sans-serif;
 }
 
 html, body, #root {
   height: 100%;
   background: var(--bg);
   color: var(--text);
+  font-family: var(--font);
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * { box-sizing: border-box; }
 
-/* links should NOT be bright blue in cards */
+/* links inherit color; only real link elements should turn blue */
 a { color: inherit; text-decoration: none; }
-a:hover { color: var(--accent); }

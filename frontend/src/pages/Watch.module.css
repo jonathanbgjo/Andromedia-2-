@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 1fr 402px;
   gap: 24px;
-  max-width: 1920px;
+  max-width: 1760px;
   margin: 0 auto;
   padding: 0;
 }
@@ -24,22 +24,10 @@
 }
 
 /* Custom scrollbar for recommendations */
-.rightCol::-webkit-scrollbar {
-  width: 8px;
-}
-
-.rightCol::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.rightCol::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-.rightCol::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-soft);
-}
+.rightCol::-webkit-scrollbar { width: 8px; }
+.rightCol::-webkit-scrollbar-track { background: transparent; }
+.rightCol::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.rightCol::-webkit-scrollbar-thumb:hover { background: var(--bg-soft); }
 
 /* Video Player */
 .playerWrap {
@@ -57,6 +45,7 @@
   object-fit: contain;
   display: block;
   background: #000;
+  border: 0;
 }
 
 /* ====== Loading state ====== */
@@ -71,7 +60,7 @@
 
 /* ====== Video title ====== */
 .title {
-  margin: 12px 0 8px;
+  margin: 12px 0 12px;
   font-size: 20px;
   font-weight: 700;
   line-height: 1.3;
@@ -85,31 +74,70 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-.leftMeta {
+/* Channel identity block */
+.channelRow {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.stat {
-  color: var(--muted);
+.channelLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.channelText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.channelName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.subCount {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Subscribe pill — modern black/white style */
+.subscribeBtn {
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
   font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font);
+  cursor: pointer;
+  background: #f1f1f1;
+  color: #0f0f0f;
+  transition: background 0.15s ease;
+  white-space: nowrap;
 }
 
-.dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--muted);
-  display: inline-block;
+.subscribeBtn:hover {
+  background: #d9d9d9;
 }
 
+.subscribed {
+  background: var(--bg-soft);
+  color: var(--text);
+}
+
+.subscribed:hover {
+  background: var(--chip-hover);
+}
+
+/* Right-side action pills */
 .rightActions {
   display: flex;
   align-items: center;
@@ -117,25 +145,97 @@
   flex-wrap: wrap;
 }
 
-.actionBtn {
-  background: var(--panel);
-  border: 1px solid var(--border);
+/* Segmented like / dislike group */
+.likeGroup {
+  display: flex;
+  align-items: center;
+  background: var(--chip);
   border-radius: 20px;
-  padding: 6px 14px;
+  overflow: hidden;
+}
+
+.likeBtn,
+.dislikeBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
   color: var(--text);
   font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font);
+  padding: 8px 14px;
+  height: 36px;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease;
+}
+
+.likeBtn:hover,
+.dislikeBtn:hover {
+  background: var(--chip-hover);
+}
+
+.likeActive {
+  color: var(--accent);
+}
+
+.likeDivider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* Standalone pill buttons (Share, Download, More) */
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--chip);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  height: 36px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.15s ease;
 }
 
 .actionBtn:hover {
+  background: var(--chip-hover);
+}
+
+/* ====== Description box ====== */
+.description {
   background: var(--bg-soft);
-  border-color: var(--accent);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.descStats {
+  display: flex;
+  gap: 8px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.descText {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.4;
+  color: var(--text);
 }
 
 /* ====== Recommended list ====== */
 .recommendedTitle {
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
   font-size: 16px;
   font-weight: 600;
   color: var(--text);
@@ -150,9 +250,7 @@
   gap: 8px;
 }
 
-.recItem {
-  margin: 0;
-}
+.recItem { margin: 0; }
 
 .recLink {
   display: flex;
@@ -160,23 +258,39 @@
   text-decoration: none;
   color: inherit;
   align-items: flex-start;
-  padding: 4px;
   border-radius: 8px;
   transition: background-color 0.1s ease;
 }
 
-.recLink:hover {
+/* Recommended thumbnail + duration badge */
+.recThumbWrap {
+  position: relative;
+  width: 168px;
+  flex-shrink: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
   background: var(--bg-soft);
 }
 
-/* Recommended Video Thumbnail */
 .recThumb {
-  width: 168px;
-  flex-shrink: 0;
-  aspect-ratio: 16/9;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  background: var(--bg-soft);
+  display: block;
+}
+
+.recDuration {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 
 /* Recommended Video Metadata */
@@ -186,16 +300,18 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding-top: 2px;
 }
 
 .recTitle {
   margin: 0;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.3;
   font-weight: 500;
   color: var(--text);
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;
@@ -213,24 +329,13 @@
   line-height: 1.4;
 }
 
-/* Hover affordance */
-.recLink:hover .recTitle {
-  text-decoration: underline;
-}
-
-/* ====== Subscribe button ====== */
-.subscribeBtn {
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: opacity 0.15s ease;
-  text-transform: uppercase;
-  margin-left: 8px;
-}
-
-.subscribeBtn:hover {
-  opacity: 0.85;
+/* Responsive: stack recommendations under the video */
+@media (max-width: 1000px) {
+  .watchLayout {
+    grid-template-columns: 1fr;
+  }
+  .rightCol {
+    position: static;
+    max-height: none;
+  }
 }

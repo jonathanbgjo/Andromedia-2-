@@ -4,6 +4,7 @@ import { api } from "../api/client";
 import { useAuth } from "../auth/AuthContext";
 import type { Channel as ChannelType } from "../types/channel";
 import type { SubscriptionStatus, SubscriberCount } from "../types/subscription";
+import { formatCount } from "../util/format";
 import styles from "./Channel.module.css";
 
 export default function Channel() {
@@ -161,8 +162,8 @@ export default function Channel() {
                       {video.title}
                     </h3>
                     <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.9rem" }}>
-                      {video.views ?? 0} views
-                      {video.likeCount > 0 && ` \u00B7 ${video.likeCount} likes`}
+                      {formatCount(video.views ?? 0)} views
+                      {video.likeCount > 0 && ` \u00B7 ${formatCount(video.likeCount)} likes`}
                     </p>
                   </div>
                 </div>

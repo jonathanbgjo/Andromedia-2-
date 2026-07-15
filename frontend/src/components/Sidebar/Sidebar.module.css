@@ -8,7 +8,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   background: var(--panel);
-  padding: 12px 0;
+  padding: 12px;
   transition: width 0.2s ease;
 }
 
@@ -16,26 +16,38 @@
 .sidebar::-webkit-scrollbar {
   width: 8px;
 }
-
 .sidebar::-webkit-scrollbar-track {
   background: transparent;
 }
-
 .sidebar::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 4px;
 }
-
 .sidebar::-webkit-scrollbar-thumb:hover {
   background: var(--bg-soft);
 }
 
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  margin: 0;
+  padding: 8px 12px 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
 /* Sidebar links */
-.sidebar a {
+.row {
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 10px 24px;
+  padding: 0 12px;
+  height: 40px;
+  border-radius: 10px;
   color: var(--text);
   text-decoration: none;
   font-size: 14px;
@@ -44,8 +56,13 @@
   cursor: pointer;
 }
 
-.sidebar a:hover {
+.row:hover {
   background: var(--bg-soft);
+}
+
+.active {
+  background: var(--bg-soft);
+  font-weight: 500;
 }
 
 /* Icon styling */
@@ -55,8 +72,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
   flex-shrink: 0;
+  color: var(--text);
 }
 
 .label {
@@ -66,37 +83,30 @@
   line-height: 1.4;
 }
 
-/* Collapsed sidebar */
-.collapsed {
-  width: 72px;
+/* Divider between sections */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 12px 0;
 }
 
-.collapsed a {
+/* Collapsed mini-guide (72px rail) */
+.collapsed {
+  width: 72px;
+  padding: 12px 0;
+}
+
+.collapsed .row {
   flex-direction: column;
   justify-content: center;
   gap: 6px;
-  padding: 16px 0;
-  text-align: center;
-}
-
-.collapsed .icon {
-  font-size: 24px;
+  height: auto;
+  padding: 14px 0;
+  border-radius: 10px;
+  margin: 0 4px;
 }
 
 .collapsed .label {
   font-size: 10px;
   line-height: 1.2;
-}
-
-/* Active state (optional - can be added via className in component) */
-.sidebar a.active {
-  background: var(--bg-soft);
-  font-weight: 500;
-}
-
-/* Divider between sections (if needed) */
-.sidebar hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 12px 0;
 }

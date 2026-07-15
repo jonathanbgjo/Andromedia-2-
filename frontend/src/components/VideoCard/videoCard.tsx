@@ -1,11 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./VideoCard.module.css";
 import type { Video } from "../../types/video";
+import Avatar from "../Avatar/Avatar";
+import { formatViews, timeAgo } from "../../util/format";
 
 export default function VideoCard({ video }: { video: Video }) {
   const navigate = useNavigate();
 
   if (!video) return null;
+
+  const channelName = video.uploader?.displayName ?? video.channelName;
+  const views = formatViews(video.views);
+  const published = timeAgo(video.publishedAt);
 
   return (
     <div
@@ -31,24 +37,38 @@ export default function VideoCard({ video }: { video: Video }) {
               );
           }}
         />
+        {video.duration && <span className={styles.duration}>{video.duration}</span>}
       </div>
 
-      <div className={styles.body}>
-        <h3 className={styles.title}>{video.title}</h3>
-        <p className={styles.meta}>
+      <div className={styles.info}>
+        <Link
+          to={video.uploader ? `/channel/${video.uploader.id}` : "#"}
+          onClick={(e) => e.stopPropagation()}
+          className={styles.avatarLink}
+          aria-label={channelName}
+        >
+          <Avatar name={channelName} src={video.uploader?.avatarUrl ?? video.avatarUrl} size={36} />
+        </Link>
+
+        <div className={styles.body}>
+          <h3 className={styles.title}>{video.title}</h3>
           {video.uploader ? (
             <Link
               to={`/channel/${video.uploader.id}`}
               onClick={(e) => e.stopPropagation()}
-              style={{ color: "inherit" }}
+              className={styles.channel}
             >
-              {video.uploader.displayName}
+              {channelName}
             </Link>
           ) : (
-            video.channelName
-          )}{" "}
-          • {video.views} views
-        </p>
+            <span className={styles.channel}>{channelName}</span>
+          )}
+          <p className={styles.meta}>
+            {views}
+            {views && published && <span className={styles.dot}> • </span>}
+            {published}
+          </p>
+        </div>
       </div>
     </div>
   );

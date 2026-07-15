@@ -9,7 +9,10 @@ export interface Video {
   thumbnailUrl: string;
   src?: string;                // keep optional for non-YouTube sources
   youtubeId?: string;          // ✅ new
-  uploader?: { id: number; displayName: string };
+  uploader?: { id: number; displayName: string; avatarUrl?: string };
+  avatarUrl?: string;          // channel avatar (optional; falls back to initials)
+  duration?: string;           // formatted "10:32" shown as a thumbnail badge
+  publishedAt?: string;        // ISO date -> rendered as "3 days ago"
 }
 
 /** If your backend returns snake_case or different fields, map it to Video */
