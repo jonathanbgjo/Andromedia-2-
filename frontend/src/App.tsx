@@ -11,7 +11,9 @@ import Subscriptions from "./pages/Subscriptions";
 import Upload from "./pages/Upload";
 import Profile from "./pages/Profile";
 import Library from "./pages/Library";
+import History from "./pages/History";
 import Trending from "./pages/Trending";
+import ComingSoon from "./pages/ComingSoon";
 import RequireAuth from "./components/RequireAuth";
 
 export default function App() {
@@ -30,6 +32,9 @@ export default function App() {
           <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="/trending" element={<Trending />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/shorts" element={<ComingSoon feature="Shorts" emoji="⚡" />} />
+          <Route path="/liked" element={<ComingSoon feature="Liked videos" emoji="👍" />} />
           <Route path="*" element={<div style={{padding:16}}>Not Found</div>} />
         </Routes>
       </Suspense>

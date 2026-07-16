@@ -52,14 +52,14 @@ interface Item {
 
 const primary: Item[] = [
   { to: "/", label: "Home", Icon: HomeIcon },
-  { to: "/shorts", label: "Shorts", Icon: ShortsIcon, external: true },
+  { to: "/shorts", label: "Shorts", Icon: ShortsIcon },
   { to: "/subscriptions", label: "Subscriptions", Icon: SubsIcon },
 ];
 
 const you: Item[] = [
   { to: "/library", label: "Library", Icon: LibraryIcon },
-  { to: "/history", label: "History", Icon: HistoryIcon, external: true },
-  { to: "/liked", label: "Liked videos", Icon: LikedIcon, external: true },
+  { to: "/history", label: "History", Icon: HistoryIcon },
+  { to: "/liked", label: "Liked videos", Icon: LikedIcon },
 ];
 
 const explore: Item[] = [
