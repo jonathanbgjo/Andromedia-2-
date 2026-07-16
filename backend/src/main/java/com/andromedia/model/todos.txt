@@ -2,4 +2,13 @@ Comment
 Like
 Subscription
 
-Recommendation system based on models above 
+Recommendation system based on models above
+
+--- Backlog ---
+[ ] Dynamic video feed via YouTube Data API v3
+    - Replace/augment the static curated ID list (frontend/src/data/youtubeIds.ts)
+      with live results from YouTube Data API v3 (trending / most-popular / search).
+    - Gives an effectively unlimited feed plus real view counts, durations, and
+      publish dates (removes the synthesized metadata in util/format.ts).
+    - Needs a free API key (keep it server-side; proxy through the Spring backend
+      so the key isn't exposed in the frontend bundle). Mind the daily quota.
