@@ -6,9 +6,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
+# NOTE: lock files (package-lock.json / yarn.lock / pnpm-lock.yaml) are
+# intentionally committed for reproducible installs — do not ignore them.
 
 # ------------------------
 # Build output
@@ -18,6 +17,13 @@ build/
 .out/
 out/
 .vite/
+# Maven/Java build output (backend/target)
+target/
+
+# ------------------------
+# Deploy tooling
+# ------------------------
+.vercel
 
 # ------------------------
 # Environment files
