@@ -8,8 +8,8 @@ interface Comment {
   content: string;
   createdAt: string;
   author: {
+    id: number;
     displayName: string;
-    email: string;
   };
 }
 
@@ -140,7 +140,7 @@ export default function Comments({ videoId }: CommentsProps) {
                 <span className={styles.commentDate}>{formatDate(comment.createdAt)}</span>
               </div>
               <p className={styles.commentContent}>{comment.content}</p>
-              {user?.email === comment.author.email && (
+              {user?.id === comment.author.id && (
                 <button
                   className={styles.deleteBtn}
                   onClick={() => handleDelete(comment.id)}

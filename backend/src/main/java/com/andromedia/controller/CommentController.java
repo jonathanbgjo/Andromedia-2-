@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.andromedia.model.Comment;
+import com.andromedia.controller.dto.CommentDto;
 import com.andromedia.service.CommentService;
 
 @RestController
@@ -30,7 +30,7 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Comment>> getComments(@PathVariable Long videoId) {
+    public ResponseEntity<List<CommentDto>> getComments(@PathVariable Long videoId) {
         return ResponseEntity.ok(commentService.getCommentsByVideoId(videoId));
     }
 
