@@ -4,5 +4,6 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  build: { outDir: "dist", sourcemap: true },
+  // No production source maps — they publish readable original source.
+  build: { outDir: "dist", sourcemap: false },
 });

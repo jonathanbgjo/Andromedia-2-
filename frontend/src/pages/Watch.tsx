@@ -10,16 +10,6 @@ import styles from "./Watch.module.css";
 import type { Video } from "../types/video";
 import type { SubscriptionStatus, SubscriberCount } from "../types/subscription";
 
-// Utility to randomize videos
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 export default function Watch() {
   const { id } = useParams<{ id: string }>();
   const { isAuthenticated } = useAuth();
@@ -126,7 +116,7 @@ export default function Watch() {
   };
 
   const recommended = useMemo<Video[]>(
-    () => shuffle(allVideos.filter((v) => String(v.id) !== id)).slice(0, 10),
+    () => allVideos.filter((v) => String(v.id) !== id).slice(0, 10),
     [allVideos, id]
   );
 
