@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.andromedia.controller.dto.CommentDto;
 import com.andromedia.model.Comment;
 import com.andromedia.model.User;
 import com.andromedia.model.Video;
@@ -25,11 +27,30 @@ public class CommentService {
         this.videoRepository = videoRepository;
     }
 
-    public List<Comment> getCommentsByVideoId(Long videoId) {
-        return commentRepository.findByVideoIdOrderByCreatedAtDesc(videoId);
+    /** Map a Comment entity to its safe DTO (no author password/email/roles). */
+    private CommentDto toDto(Comment comment) {
+        User author = comment.getAuthor();
+        CommentDto.Author authorDto = author == null
+                ? null
+                : new CommentDto.Author(author.getId(), author.getDisplayName());
+        return new CommentDto(
+                comment.getId(),
+                comment.getContent(),
+                comment.getCreatedAt(),
+                comment.getUpdatedAt(),
+                authorDto);
     }
 
-    public Optional<Comment> createComment(Long videoId, String userEmail, String content) {
+    @Transactional(readOnly = true)
+    public List<CommentDto> getCommentsByVideoId(Long videoId) {
+        return commentRepository.findByVideoIdOrderByCreatedAtDesc(videoId)
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
+
+    @Transactional
+    public Optional<CommentDto> createComment(Long videoId, String userEmail, String content) {
         Optional<Video> videoOpt = videoRepository.findById(videoId);
         Optional<User> userOpt = userRepository.findByEmail(userEmail);
 
@@ -45,9 +66,10 @@ public class CommentService {
                 .updatedAt(LocalDateTime.now())
                 .build();
 
-        return Optional.of(commentRepository.save(comment));
+        return Optional.of(toDto(commentRepository.save(comment)));
     }
 
+    @Transactional
     public boolean deleteComment(Long commentId, String userEmail) {
         Optional<Comment> commentOpt = commentRepository.findById(commentId);
         if (commentOpt.isEmpty()) {
@@ -63,7 +85,8 @@ public class CommentService {
         return true;
     }
 
-    public Optional<Comment> updateComment(Long commentId, String userEmail, String newContent) {
+    @Transactional
+    public Optional<CommentDto> updateComment(Long commentId, String userEmail, String newContent) {
         Optional<Comment> commentOpt = commentRepository.findById(commentId);
         if (commentOpt.isEmpty()) {
             return Optional.empty();
@@ -76,6 +99,6 @@ public class CommentService {
 
         comment.setContent(newContent);
         comment.setUpdatedAt(LocalDateTime.now());
-        return Optional.of(commentRepository.save(comment));
+        return Optional.of(toDto(commentRepository.save(comment)));
     }
 }

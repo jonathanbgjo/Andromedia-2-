@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.andromedia.controller.dto.UploaderDto;
 import com.andromedia.controller.dto.VideoResponseDto;
@@ -26,22 +27,27 @@ public class VideoService {
         this.userRepository = userRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Video> getAllVideos(){
-        return videoRepository.findAll();
+        return videoRepository.findAllWithUploader();
     }
 
+    @Transactional(readOnly = true)
     public Optional<Video> getVideoById(Long id){
         return videoRepository.findById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Video> searchVideos(String query){
         return videoRepository.searchByKeyword(query);
     }
 
+    @Transactional
     public Video uploadVideo(Video video){
         return videoRepository.save(video);
     }
 
+    @Transactional
     public Video createVideo(String title, String description, String videoUrl, User uploader) {
         String youtubeId = extractYouTubeId(videoUrl);
         if (youtubeId == null) {
@@ -89,10 +95,12 @@ public class VideoService {
         return null;
     }
 
+    @Transactional
     public void deleteVideo(Long id){
         videoRepository.deleteById(id);
     }
 
+    @Transactional
     public boolean likeVideo(Long videoId, String userEmail) {
         Optional<Video> videoOpt = videoRepository.findById(videoId);
         Optional<User> userOpt = userRepository.findByEmail(userEmail);
@@ -116,6 +124,7 @@ public class VideoService {
         return false;
     }
 
+    @Transactional
     public boolean unlikeVideo(Long videoId, String userEmail) {
         Optional<Video> videoOpt = videoRepository.findById(videoId);
         Optional<User> userOpt = userRepository.findByEmail(userEmail);
@@ -135,21 +144,23 @@ public class VideoService {
         return false;
     }
 
+    @Transactional(readOnly = true)
     public int getLikeCount(Long videoId) {
-        Optional<Video> videoOpt = videoRepository.findById(videoId);
-        if (videoOpt.isEmpty()) {
-            return 0;
-        }
-        Video video = videoOpt.get();
-        return video.getLikes() != null ? video.getLikes().size() : 0;
+        return (int) videoRepository.countLikes(videoId);
     }
 
+    @Transactional(readOnly = true)
     public List<Video> getVideosByUploaderId(Long uploaderId) {
         return videoRepository.findByUploader_Id(uploaderId);
     }
 
+    @Transactional(readOnly = true)
+    public long countVideosByUploaderId(Long uploaderId) {
+        return videoRepository.countByUploader_Id(uploaderId);
+    }
+
     public VideoSummaryDto toVideoSummaryDto(Video video) {
-        int likeCount = video.getLikes() != null ? video.getLikes().size() : 0;
+        int likeCount = (int) videoRepository.countLikes(video.getId());
         return new VideoSummaryDto(
             video.getId(),
             video.getTitle(),
@@ -162,7 +173,7 @@ public class VideoService {
     }
 
     public VideoResponseDto toVideoResponseDto(Video video) {
-        int likeCount = video.getLikes() != null ? video.getLikes().size() : 0;
+        int likeCount = (int) videoRepository.countLikes(video.getId());
         UploaderDto uploaderDto = null;
         if (video.getUploader() != null) {
             uploaderDto = new UploaderDto(video.getUploader().getId(), video.getUploader().getDisplayName());
@@ -179,17 +190,12 @@ public class VideoService {
         );
     }
 
+    @Transactional(readOnly = true)
     public boolean isLikedByUser(Long videoId, String userEmail) {
-        Optional<Video> videoOpt = videoRepository.findById(videoId);
         Optional<User> userOpt = userRepository.findByEmail(userEmail);
-
-        if (videoOpt.isEmpty() || userOpt.isEmpty()) {
+        if (userOpt.isEmpty()) {
             return false;
         }
-
-        Video video = videoOpt.get();
-        User user = userOpt.get();
-
-        return user.getLikedVideos() != null && user.getLikedVideos().contains(video);
+        return videoRepository.existsLike(videoId, userOpt.get().getId());
     }
 }

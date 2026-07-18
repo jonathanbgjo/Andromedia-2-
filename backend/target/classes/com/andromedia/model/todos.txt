@@ -1,5 +1,0 @@
-Comment
-Like
-Subscription
-
-Recommendation system based on models above 

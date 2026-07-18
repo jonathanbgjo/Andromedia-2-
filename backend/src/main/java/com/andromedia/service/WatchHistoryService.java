@@ -41,11 +41,8 @@ public class WatchHistoryService {
         User user = userOpt.get();
         Video video = videoOpt.get();
 
-        // Remove existing entry for this video so we can move it to the top
-        List<WatchHistory> existing = watchHistoryRepository.findByUserIdOrderByWatchedAtDesc(user.getId());
-        existing.stream()
-            .filter(h -> h.getVideo().getId().equals(videoId))
-            .forEach(watchHistoryRepository::delete);
+        // Remove any existing entry for this video so we can move it to the top
+        watchHistoryRepository.deleteByUserIdAndVideoId(user.getId(), videoId);
 
         WatchHistory history = WatchHistory.builder()
             .user(user)
@@ -56,6 +53,7 @@ public class WatchHistoryService {
         return Optional.of(watchHistoryRepository.save(history));
     }
 
+    @Transactional(readOnly = true)
     public List<WatchHistory> getHistory(String email) {
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (userOpt.isEmpty()) {

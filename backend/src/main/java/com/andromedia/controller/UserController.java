@@ -43,13 +43,13 @@ public class UserController {
         String userEmail = auth.getName();
         return userService.getUserByEmail(userEmail)
             .map(user -> {
-                List<Video> videos = videoService.getVideosByUploaderId(user.getId());
+                long videoCount = videoService.countVideosByUploaderId(user.getId());
                 UserProfileDto profile = new UserProfileDto(
                     user.getId(),
                     user.getDisplayName(),
                     user.getEmail(),
                     user.getCreatedDate(),
-                    videos.size()
+                    (int) videoCount
                 );
                 return ResponseEntity.ok(profile);
             })
@@ -73,13 +73,13 @@ public class UserController {
             .map(user -> {
                 user.setDisplayName(displayName.trim());
                 userService.saveUser(user);
-                List<Video> videos = videoService.getVideosByUploaderId(user.getId());
+                long videoCount = videoService.countVideosByUploaderId(user.getId());
                 UserProfileDto profile = new UserProfileDto(
                     user.getId(),
                     user.getDisplayName(),
                     user.getEmail(),
                     user.getCreatedDate(),
-                    videos.size()
+                    (int) videoCount
                 );
                 return ResponseEntity.ok(profile);
             })

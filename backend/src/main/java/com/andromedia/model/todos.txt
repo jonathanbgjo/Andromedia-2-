@@ -2,4 +2,29 @@ Comment
 Like
 Subscription
 
-Recommendation system based on models above 
+Recommendation system based on models above
+
+--- Backlog ---
+[ ] Dynamic video feed via YouTube Data API v3
+    - Replace/augment the static curated ID list (frontend/src/data/youtubeIds.ts)
+      with live results from YouTube Data API v3 (trending / most-popular / search).
+    - Gives an effectively unlimited feed plus real view counts, durations, and
+      publish dates (removes the synthesized metadata in util/format.ts).
+    - Needs a free API key (keep it server-side; proxy through the Spring backend
+      so the key isn't exposed in the frontend bundle). Mind the daily quota.
+
+--- Security / scaling backlog (from code review) ---
+[ ] Login brute-force protection: rate limiting / temporary lockout on
+    /auth/login (e.g. bucket4j, or a gateway/WAF rule). Needs an infra decision
+    (in-memory won't hold across instances).
+[ ] Registration email enumeration: /auth/register reveals whether an email
+    exists. Fully fixing this needs an email-verification flow (confirm before
+    activating) rather than an immediate "already registered" response.
+[ ] Auth storage: move the JWT from localStorage (XSS-exfiltratable) to an
+    httpOnly, SameSite cookie set by the backend, and drop the bearer header +
+    credentials:"include" mix. Frontend + backend coordinated change.
+[ ] Pagination: /api/videos, /api/videos/search, comments, and history return
+    unbounded lists. Add Pageable/Page<> — coordinated change with the frontend
+    consumers (changes response shape).
+[ ] Feed like-counts: current per-video COUNT query is O(n) queries on the feed.
+    A single GROUP BY projection (id,…,COUNT(likes)) would make it one query.
