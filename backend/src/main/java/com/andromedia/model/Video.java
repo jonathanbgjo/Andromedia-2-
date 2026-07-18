@@ -7,13 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "videos")
+@Table(name = "videos", indexes = {
+    @Index(name = "idx_video_uploader", columnList = "uploader_id")
+})
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

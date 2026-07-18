@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -16,7 +17,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "watch_history")
+@Table(name = "watch_history", indexes = {
+    @Index(name = "idx_watch_user", columnList = "user_id"),
+    @Index(name = "idx_watch_user_video", columnList = "user_id, video_id")
+})
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class WatchHistory {
     @Id
